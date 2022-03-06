@@ -1,7 +1,8 @@
 .contentcontainer{
     display: flex;
     display: table-row;
-    margin-left:190px;
+    margin-left:200px;
+    margin-top: -10px;
 }
 
 .contentwrapper{
@@ -16,12 +17,34 @@
     width:250px;
     height:80px;
     background-color: whitesmoke;
-    
-    
-    
     cursor: pointer;
     box-shadow: 3px 0px 6px 0px rgba(116, 12, 116, 0.75);
 }
+
+
+.card {
+    
+    margin-top: 50rem;
+    margin: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid #732e9c;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    width: 150px;
+    height: 100px;
+    
+    
+  }
+
+
+.card a {
+  
+  font-size: 1.5rem;
+}
+
 
 
 .categories>h2{
@@ -29,10 +52,20 @@
 }
 
 .coursestab {
+    display: flex;
+    place-content: flex-start;
+    align-items: center;
+    justify-content: flex-start;
     background-color: whitesmoke;
     margin-top: -20px;
-    margin-left: 20px;
+    margin-left: 220px;
     width: 70%;
-    height: 725px;
+    height: 750px;
     box-shadow: 3px 0px 6px 0px rgba(116, 12, 116, 0.75);
+    flex-flow: wrap;
+}
+
+
+.cardWrapper {
+    display: flex;
 }

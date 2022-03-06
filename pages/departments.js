@@ -53,13 +53,13 @@ const Departments = () => {
 
     const renderDepartments = () => {
         return departments.map((department) => {
-            return <div 
+            return <a 
                         key={department.id}
                         onClick={() => { onDepartmentClick(department) }} 
                         className={getDepartmentClassName(department)}
                     >
                         {department.name}
-                    </div>
+                    </a>
         })
     }    
 

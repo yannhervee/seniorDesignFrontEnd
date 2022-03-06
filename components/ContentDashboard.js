@@ -3,6 +3,7 @@ import React from 'react'
 
 const ContentDashboard = () => {
     return (
+        <>
         <div className={styles.contentcontainer}>
 			<div className={styles.contentwrapper}>
 				<div className={styles.tabs}>
@@ -12,13 +13,25 @@ const ContentDashboard = () => {
 				
 				</div>
 			</div>
-			{/* display courses  */}
+            </div>
+            
+			
 			<div className={styles.coursestab}>
-				<div className={styles.bar}>
-					<h2>list of courses</h2>
-				</div>
+					
+                    <a className={styles.card}> Course a</a>
+                    <a className={styles.card}> Course b</a>
+                    <a className={styles.card}> Course c</a>
+                    <a className={styles.card}> Course d</a>
+                    <a className={styles.card}> Course f</a>
+                    <a className={styles.card}> Course a</a>
+                    <a className={styles.card}> Course b</a>
+                    <a className={styles.card}> Course c</a>
+                    <a className={styles.card}> Course d</a>
+                    <a className={styles.card}> Course f</a>
+
 			</div>
-		</div>
+            </>
+		
 
     )
   }
