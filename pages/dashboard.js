@@ -1,5 +1,6 @@
 
 import LeftNav from '../components/LeftNav';
+import Header from '../components/Header';
 
 const Dashboard = () => {
 
@@ -7,8 +8,10 @@ const Dashboard = () => {
     return(
         <>
        
-        <h1>Welcome student!</h1>
+        
         <LeftNav />
+        
+        <Header />
         </>
     )
 }

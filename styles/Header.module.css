@@ -1,0 +1,30 @@
+.headcontainer{
+    display: flex;
+    flex-wrap: wrap;
+    height:70px;
+    background-color: rgb(255, 255, 255);
+    margin-left:200px;
+    margin-top: -257px;
+    overflow: hidden;
+   
+}
+.headwrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.title{
+    margin-left: 40px;
+}
+.title>h2{
+    color: rgb(0, 0, 0);;
+}
+.title>p{
+    color: rgb(0, 0, 0);;
+}
+.title>h2>span{
+    color:rgb(9, 112, 72);
+}
+
+
