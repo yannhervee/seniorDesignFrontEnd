@@ -1,0 +1,38 @@
+.contentcontainer{
+    display: flex;
+    display: table-row;
+    margin-left:190px;
+}
+
+.contentwrapper{
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+.tabs{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width:250px;
+    height:80px;
+    background-color: whitesmoke;
+    
+    
+    
+    cursor: pointer;
+    box-shadow: 3px 0px 6px 0px rgba(116, 12, 116, 0.75);
+}
+
+
+.categories>h2{
+    color: rgb(70, 105, 70);
+}
+
+.coursestab {
+    background-color: whitesmoke;
+    margin-top: -20px;
+    margin-left: 20px;
+    width: 70%;
+    height: 725px;
+    box-shadow: 3px 0px 6px 0px rgba(116, 12, 116, 0.75);
+}

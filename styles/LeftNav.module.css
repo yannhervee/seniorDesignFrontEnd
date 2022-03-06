@@ -31,13 +31,19 @@
 }
 
 .wrapper>ul>li:active{
-    color: #000;
+    color: darkcyan;
+    background-color: #732e9c;
+    transition: all;
 }
 
-.wrapper>ul>li>a:hover{
+.active{
+    color: #732e9c;
+}
+
+.wrapper>ul>li>:link:hover{
     color: #732e9c;
     font-size: 22px;
-    transition: 0.2s;
+    transition: 0s;
 }
 
 

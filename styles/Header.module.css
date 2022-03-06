@@ -2,10 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     height:70px;
-    background-color: rgb(255, 255, 255);
+    background-color: whitesmoke;
     margin-left:200px;
     margin-top: -257px;
     overflow: hidden;
+    box-shadow: 0px 0px 6px 0px rgba(27, 26, 26, 0.75);
    
 }
 .headwrapper{
@@ -24,7 +25,7 @@
     color: rgb(0, 0, 0);;
 }
 .title>h2>span{
-    color:rgb(9, 112, 72);
+    color: #732e9c;
 }
 
 
