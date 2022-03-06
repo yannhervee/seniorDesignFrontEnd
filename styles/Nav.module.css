@@ -17,6 +17,37 @@
     align-items: center;
     list-style: none;
   }
+
+  .postquestionbutton {
+    color: rgb(255, 255, 255);
+    min-width: 70px;
+    width: auto;
+    background: rgb(255, 107, 84);
+    border: 1px solid rgb(255, 107, 84);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 7px 15px;
+    opacity: 1;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: center;
+    display: inline-flex;
+    margin-right: 20px;
+    align-items: center;
+    
+    justify-content: center;
+    transition: background-color 0.1s
+  }
+
+  .logotilte {
+    font-weight: bold;
+    font-size: 20px;
+    
+  }
   
   .nav ul li a {
     margin: 5px 15px;
@@ -37,4 +68,7 @@
     overflow: hidden;
     margin-top: -6;
     padding-top: -6px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
   }
