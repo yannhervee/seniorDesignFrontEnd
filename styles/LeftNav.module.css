@@ -1,10 +1,10 @@
 .navcontainer {
-    position: fixed;
-    margin-top: 60px;
+    position: 0;
+    margin-top: -80px;
     width:200px;
     height:100%;
     background-color: fff;
-    box-shadow: 3px 0px 6px 0px rgba(246, 246, 246, 0.75);
+    box-shadow: 3px 0px 6px 0px rgba(27, 26, 26, 0.75);
 }
 
 .wrapper{
@@ -31,13 +31,19 @@
 }
 
 .wrapper>ul>li:active{
-    color: #000;
+    color: darkcyan;
+    background-color: #732e9c;
+    transition: all;
 }
 
-.wrapper>ul>li>a:hover{
+.active{
+    color: #732e9c;
+}
+
+.wrapper>ul>li>:link:hover{
     color: #732e9c;
     font-size: 22px;
-    transition: 0.2s;
+    transition: 0s;
 }
 
 

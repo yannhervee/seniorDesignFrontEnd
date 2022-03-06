@@ -1,0 +1,31 @@
+.headcontainer{
+    display: flex;
+    flex-wrap: wrap;
+    height:70px;
+    background-color: whitesmoke;
+    margin-left:200px;
+    margin-top: -257px;
+    overflow: hidden;
+    box-shadow: 0px 0px 6px 0px rgba(27, 26, 26, 0.75);
+   
+}
+.headwrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.title{
+    margin-left: 40px;
+}
+.title>h2{
+    color: rgb(0, 0, 0);;
+}
+.title>p{
+    color: rgb(0, 0, 0);;
+}
+.title>h2>span{
+    color: #732e9c;
+}
+
+
