@@ -4,7 +4,7 @@ import navStyles from '../styles/Nav.module.css'
 import logo from '../public/wtransparent.png' 
 import Image from 'next/image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import{ faBars, faRocket, faBell} from "@fortawesome/free-solid-svg-icons";
+import{ faBars, faBell} from "@fortawesome/free-solid-svg-icons";
 
 
 const Nav = () => {
