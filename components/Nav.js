@@ -22,7 +22,7 @@ const Nav = () => {
         <div className={navStyles.right}>
             <ul>
                 <li>
-                  <Link href='/myquestions'><button className={navStyles.postquestionbutton}>Post a question</button></Link>
+                  <Link href='/postquestion'><button className={navStyles.postquestionbutton}>Post a question</button></Link>
                   
                 </li>
                 <li>

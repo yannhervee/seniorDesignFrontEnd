@@ -1,8 +1,9 @@
+
 import LeftNav from '../components/LeftNav';
 import Header from '../components/Header';
 import ContentDashboard from '../components/ContentDashboard';
 
-const Myquestions = () => {
+const Postquestion = () => {
 
     
     return(
@@ -10,10 +11,11 @@ const Myquestions = () => {
        
         
         <LeftNav />
-        <Header />
-   
+        
+       
+        
         </>
     )
 }
 
-export default Myquestions;
+export default Postquestion;
