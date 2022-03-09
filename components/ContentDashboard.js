@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const ContentDashboard = () => {
-  //  const user = useSelector(selectUser)
+   // const user = useSelector(selectUser)
 
     // CRUD - create, read, update, delete
     // REST apis
@@ -26,7 +26,7 @@ const ContentDashboard = () => {
         // Promises
         axios.get('http://localhost:3001/user_courses/', {
             params: {
-                user_id: 14
+                user_id: 12
             }
         })
         .then((res) => {
@@ -64,7 +64,7 @@ const ContentDashboard = () => {
 			<div className={styles.coursestab}> 
                 {renderCourses()}
 					
-                    <a className={styles.card}> Course a</a>
+                   {/*  <a className={styles.card}> Course a</a>
                     <a className={styles.card}> Course b</a>
                     <a className={styles.card}> Course c</a>
                     <a className={styles.card}> Course d</a>
@@ -73,7 +73,7 @@ const ContentDashboard = () => {
                     <a className={styles.card}> Course b</a>
                     <a className={styles.card}> Course c</a>
                     <a className={styles.card}> Course d</a>
-                    <a className={styles.card}> Course f</a>
+                    <a className={styles.card}> Course f</a> */}
 
 			</div>
             </>

@@ -1,7 +1,8 @@
 
 import LeftNav from '../components/LeftNav';
 import Header from '../components/Header';
-import ContentDashboard from '../components/ContentDashboard';
+
+import ContentPostQuestion from '../components/ContentPostQuestion';
 
 const Postquestion = () => {
 
@@ -11,7 +12,7 @@ const Postquestion = () => {
        
         
         <LeftNav />
-        
+        <ContentPostQuestion />
        
         
         </>
