@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import{ faChalkboardTeacher, faR, faCog, faRocket, faNewspaper, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import{ faChalkboardTeacher, faUser, faCog, faRocket, faNewspaper, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {  useRouter } from 'next/router'
 
 const LeftNav = () => {
@@ -27,9 +27,9 @@ const LeftNav = () => {
                         <a className={router.pathname== "/forum" ? styles.active : ""}> Forum</a>
                         </Link>
                     </li>
-                    <li><FontAwesomeIcon icon={faCog} style={{width:"18px", cursor:"pointer"}}/>
-                        <Link href="/setting"> 
-                        <a className={router.pathname== "/settings" ? styles.active : ""}> Settings</a>
+                    <li><FontAwesomeIcon icon={faUser} style={{width:"18px", cursor:"pointer"}}/>
+                        <Link href="/profile"> 
+                        <a className={router.pathname== "/settings" ? styles.active : ""}> My Profile</a>
                         </Link>
                     </li>
                     <li><FontAwesomeIcon icon={faSignOutAlt} style={{width:"18px", cursor:"pointer"}}/>
