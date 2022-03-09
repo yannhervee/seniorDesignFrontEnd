@@ -1,0 +1,45 @@
+.header{
+    width: 100%;
+  
+    margin-top: 65px;
+    position: absolute;
+    background: #C4B2EC;
+    height: 150px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 1000px;
+    margin: 0px auto;
+    z-index: 2;
+    background-color: yellow;
+}
+
+.box1{
+    width: 1000px;
+    height: 400px;
+    background-color: white;
+    border: solid 3px;
+    border-color: #732e9c;;
+    
+    z-index: 2;
+    height: 600px;
+    text-align: center;
+    
+}
+.info{
+    margin-top: 20px;
+    color: #732e9c;;
+}
+
+.back {
+    margin-left: 160px;
+    margin-top: 15px;
+    font-size: 22px;
+    color: azure;
+}
