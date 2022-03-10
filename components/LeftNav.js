@@ -33,7 +33,7 @@ const LeftNav = () => {
                         </Link>
                     </li>
                     <li><FontAwesomeIcon icon={faSignOutAlt} style={{width:"18px", cursor:"pointer"}}/>
-                        <Link href="/logout">
+                        <Link href="/login">
                         <a className={router.pathname== "/logout" ? styles.active : ""}> logout</a>
                         </Link>
                     </li>
