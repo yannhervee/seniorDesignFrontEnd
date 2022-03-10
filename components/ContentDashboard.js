@@ -64,16 +64,8 @@ const ContentDashboard = () => {
 			<div className={styles.coursestab}> 
                 {renderCourses()}
 					
-                   {/*  <a className={styles.card}> Course a</a>
-                    <a className={styles.card}> Course b</a>
-                    <a className={styles.card}> Course c</a>
-                    <a className={styles.card}> Course d</a>
-                    <a className={styles.card}> Course f</a>
-                    <a className={styles.card}> Course a</a>
-                    <a className={styles.card}> Course b</a>
-                    <a className={styles.card}> Course c</a>
-                    <a className={styles.card}> Course d</a>
-                    <a className={styles.card}> Course f</a> */}
+                  <div className={styles.remove}> Remove a Course</div>
+                  <div className={styles.add}> Add courses</div>
 
 			</div>
             </>
