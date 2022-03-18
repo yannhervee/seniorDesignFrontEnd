@@ -46,7 +46,7 @@
 
 .questioncontent {
     
-  
+    text-align: justify;
     font-size: 20px;
     color: #732e9c;
     flex-wrap: wrap;
