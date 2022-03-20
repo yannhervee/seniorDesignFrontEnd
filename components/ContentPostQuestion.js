@@ -64,7 +64,8 @@ const ContentPostQuestion = () => {
                                     
                                     >
                                     <option value="" disabled selected>Select a course </option>
-                                    <option value="#">MATlabel10</option>
+                                    <option value="#">MATH 320</option>
+                                    <option value="#">PHY 120</option>
                                     <option value="#">SOFT210</option>    
                                 </Field>
                                 
