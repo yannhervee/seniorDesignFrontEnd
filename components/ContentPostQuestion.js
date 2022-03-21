@@ -1,25 +1,36 @@
 import styles from '../styles/ContentPostQuestion.module.css'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import {Form, Field} from 'react-final-form'
+import {Form, Field} from 'react-final-form';
+import axios from 'axios'
 
+const required = value => (value ? undefined : 'Required')
+const composeValidators = (...validators) => value =>
+validators.reduce((error, validator) => error || validator(value), undefined)
 
 const ContentPostQuestion = () => {
- 
-    const required = value => (value ? undefined : 'Required')
-   
-    const composeValidators = (...validators) => value =>
-    validators.reduce((error, validator) => error || validator(value), undefined)
+    const [courses, setCourses] = useState([])
 
 
-    const onSubmit = async event => {
-        event.preventDefault()
+    useEffect(() => {
+        axios.get('http://localhost:3001/courses')
+        .then((res) => {
+            console.log(res)
+            setCourses(res.data)
+        })
+        .catch(() => {})
+    }, [])    
 
+    const onSubmit = (values) => {
+        console.log(values, 'values')
+        return axios.post('http://localhost:3001/posts', values)
+        .then((res) => {
+            console.log(res)  
+            // TODO: route to forum or all           
+        })
+        .catch(() => {})
 
     }
-
-
-
 
     return (
         <>
@@ -48,7 +59,6 @@ const ContentPostQuestion = () => {
 			<div className={styles.coursestab}> 
                  <Form
                     onSubmit={onSubmit} 
-                    initialValues={{ course: '', topic :''}}
                     render={({handleSubmit, form, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit}>
     `                        <div className={styles.stepwrapper}>
@@ -56,17 +66,15 @@ const ContentPostQuestion = () => {
                             </div>
                             
                             <div className={styles.coursewrapper}>
-                                <Field name="course" 
+                                <Field name="course_id" 
                                     className={styles.selectinput} 
                                     //onChange={e => setRole(e.target.value)}
                                     component="select"
-                                    validate={required}
                                     
                                     >
-                                    <option value="" disabled selected>Select a course </option>
-                                    <option value="#">MATH 320</option>
-                                    <option value="#">PHY 120</option>
-                                    <option value="#">SOFT210</option>    
+                                        {courses.map((c) => {
+                                            return <option value={c.id}>{c.name}</option>
+                                        })}
                                 </Field>
                                 
                             </div>
@@ -81,7 +89,7 @@ const ContentPostQuestion = () => {
                                     name="topic" 
                                     
                                     component="input"
-                                    validate={required}
+                                    //validate={required}
                                     >
                                         {({ input, meta }) => (
                                             <div>
@@ -102,7 +110,7 @@ const ContentPostQuestion = () => {
                                 name="question" 
                                 className={styles.questioninput} 
                                 component="input" 
-                                validate={required} 
+                                //validate={required} 
                             >
                                  
                                         {({ input, meta }) => (
