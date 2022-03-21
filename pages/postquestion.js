@@ -8,7 +8,7 @@ const Postquestion = () => {
 
     
     return(
-        <>
+        <> 
        
         
         <LeftNav />

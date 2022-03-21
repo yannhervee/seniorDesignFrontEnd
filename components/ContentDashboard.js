@@ -39,7 +39,7 @@ const ContentDashboard = () => {
         .catch((e) => {
             console.log('error', e);
         })
-    })
+    }, [])
 
     const renderCourses = () => {
         return userCourses.map((userCourse) => {
