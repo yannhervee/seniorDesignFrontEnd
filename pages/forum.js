@@ -4,13 +4,13 @@ import ContentDashboard from '../components/ContentDashboard';
 import styles from '../styles/MyQuestions.module.css'
 
 const Myquestions = () => {
-
+    const [posts, setPosts] = useState([])
     
     return(
         <>
 
 
-
+            
 
         <div></div>
         
