@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {Form, Field} from 'react-final-form';
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const required = value => (value ? undefined : 'Required')
 const composeValidators = (...validators) => value =>
@@ -10,7 +11,7 @@ validators.reduce((error, validator) => error || validator(value), undefined)
 
 const ContentPostQuestion = () => {
     const [courses, setCourses] = useState([])
-
+    const router = useRouter();
 
     useEffect(() => {
         axios.get('http://localhost:3001/courses')
@@ -26,7 +27,7 @@ const ContentPostQuestion = () => {
         return axios.post('http://localhost:3001/posts', values)
         .then((res) => {
             console.log(res)  
-            // TODO: route to forum or all           
+            router.push('/myquestions')           
         })
         .catch(() => {})
 
