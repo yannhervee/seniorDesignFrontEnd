@@ -5,6 +5,7 @@ import styles from '../styles/MyQuestions.module.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+
 const Forum = () => {
     const [posts, setPosts] = useState([])
     useEffect(() => {
@@ -39,7 +40,7 @@ const Forum = () => {
        
             
                
-
+        
                 {posts.map((post) => {
                     console.log("single post", post)
                     console.log("single post body", post.body)
@@ -53,7 +54,7 @@ const Forum = () => {
                                     <span className={styles.topic}> {post.topic.name}</span>
                                 </div>
                                 <div className={styles.comments}> 5 comments </div>
-                                <div className={styles.course}>{post.topic.course_id}</div>
+                                <div className={styles.course}>{post.topic.course.name}</div>
                                 </div>
                             </>
                         
@@ -61,7 +62,7 @@ const Forum = () => {
                       
                 })}
                      
-
+                
             </div>
            
 
