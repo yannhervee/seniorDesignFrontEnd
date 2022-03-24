@@ -1,77 +1,105 @@
-import styles from '../styles/ContentDashboard.module.css'
-import React from 'react'
-import { selectUser } from '../features/userSlice'
-import { useRouter } from 'next/router'
+import styles from "../styles/ContentDashboard.module.css";
+import React from "react";
+import { selectUser } from "../features/userSlice";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const ContentDashboard = () => {
-   // const user = useSelector(selectUser)
+    const router = useRouter()
+  // const user = useSelector(selectUser)
 
-    // CRUD - create, read, update, delete
-    // REST apis
+  // CRUD - create, read, update, delete
+  // REST apis
 
-    // read - index -- /resources        GET     1 or more 
-    // read - show -- /resources/resouce_id   GET  only 1
-    // create - create -- /resources     POST
-    // update - update -- /resources/resource_id  POST
+  // read - index -- /resources        GET     1 or more
+  // read - show -- /resources/resouce_id   GET  only 1
+  // create - create -- /resources     POST
+  // update - update -- /resources/resource_id  POST
 
-    const [userCourses, setUserCourses] = useState([])
+  const [userCourses, setUserCourses] = useState([]);
 
+  useEffect(() => {
+    console.log("running effect");
+    //  console.log(user, 'department')
+    // Promises
+    axios
+      .get("http://localhost:3001/user_courses/", {
+        params: {
+          user_id: 14,
+        },
+      })
+      .then((res) => {
+        console.log("responaw", res.data);
+        setUserCourses(res.data);
+        console.log("res data courses", userCourses);
+        console.log("res data name", userCourses[0].course.name);
+      })
+      .catch((e) => {
+        console.log("error", e);
+      });
+  }, []);
 
-    useEffect(() => {
-        console.log('running effect')
-      //  console.log(user, 'department')
-        // Promises
-        axios.get('http://localhost:3001/user_courses/', {
-            params: {
-                user_id: 12
-            }
-        })
-        .then((res) => {
-            console.log(res);  
-            setUserCourses(res.data)      
-            console.log("res data courses", userCourses)
-            console.log("res data courses", userCourses[0].course.name)
+  const handleRemoveButton = (user_course, e) => {
+    e.preventDefault();
+    const deleteUrl = `http://localhost:3001/user_courses/${user_course}`;
 
-        })
-        .catch((e) => {
-            console.log('error', e);
-        })
-    }, [])
-
-    const renderCourses = () => {
-        return userCourses.map((userCourse) => {
-            return <a className={styles.card}>{userCourse.course.name}</a>
-        })
+    console.log("delete id");
+    if (user_course) {
+      axios.delete(deleteUrl).then(() => {
+        setUserCourses(
+          userCourses.filter((course) => course.id !== user_course)
+        );
+      });
     }
+  };
 
-    return (
+const handleAddButton = () => {
+    router.push('/departments');
+}
+
+
+  const renderCourses = () => {
+    return userCourses.map((userCourse) => {
+      return (
         <>
-        <div className={styles.contentcontainer}>
-			<div className={styles.contentwrapper}>
-				<div className={styles.tabs}>
-					<div className={styles.categories}>
-						<h2>My Courses</h2>
-					</div>
-				
-				</div>
-			</div>
+          <div className={styles.cardwrapper}>
+            <div class={styles.card}>
+              <a className={styles.name}>{userCourse.course.name}</a>
+              <button
+                className={styles.button}
+                onClick={(e) => handleRemoveButton(userCourse.id, e)}
+              >
+                {" "}
+                Remove Course
+              </button>
             </div>
-            
-			
-			<div className={styles.coursestab}> 
-                {renderCourses()}
-					
-                  <div className={styles.remove}> Remove a Course</div>
-                  <div className={styles.add}> Add courses</div>
+          </div>
+        </>
+      );
+    });
+  };
 
-			</div>
-            </>
-		
+  return (
+    <>
+      <div className={styles.contentcontainer}>
+        <div className={styles.contentwrapper}>
+          <div className={styles.tabs}>
+            <div className={styles.categories}>
+              <h2>My Courses</h2>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    )
-  }
-  
-  export default ContentDashboard;
+      <div className={styles.coursestab}>
+        {renderCourses()}
+
+        <button className={styles.add} onClick={handleAddButton}> Add Courses</button>
+      </div>
+    </>
+  );
+};
+
+export default ContentDashboard;

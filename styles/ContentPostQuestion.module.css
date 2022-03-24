@@ -1,175 +1,161 @@
-.contentcontainer{
-    display: flex;
-    display: table-row;
-    margin-left:220px;
-    margin-top: -250px;
-    background-color: white;
+.contentcontainer {
+  display: flex;
+  display: table-row;
+  margin-left: 220px;
+  margin-top: -250px;
+  background-color: white;
 }
 
-.contentwrapper{
-    display: flex;
-    padding: 20px;
-    gap: 20px;
-    
-    justify-content: center;
+.contentwrapper {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+
+  justify-content: center;
 }
 .back {
-    margin-left: 160px;
-    margin-top: 15px;
-    font-size: 22px;
-    color: rgb(153, 153, 153);
+  margin-left: 160px;
+  margin-top: 15px;
+  font-size: 22px;
+  color: rgb(153, 153, 153);
 }
-.tabs{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:250px;
-    height:80px;
-   
-    cursor: pointer;
-    margin-bottom: 30px;
-    margin-top: -20px;
-    
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 80px;
+
+  cursor: pointer;
+  margin-bottom: 30px;
+  margin-top: -20px;
 }
 .label {
-    color: #732e9c;
-    margin-top: 30px;
-    margin-left: 140px;
-   
+  color: #732e9c;
+  margin-top: 30px;
 }
-
-
 
 .descriptionwrapper {
-    
-    width: 70%;
-    height: auto;
-    margin-left: 250px;
-    margin-top: -95px;
-    margin-bottom: 20px;
-    
-    
+  width: 70%;
+  height: auto;
+  margin-left: 250px;
+  margin-top: -95px;
+  margin-bottom: 20px;
 }
-.stepwrapper{
-    margin-left: 390px;
-    margin-top: 10px;
-   
+.stepwrapper {
+  margin-top: 10px;
+  text-align: center;
 }
 
 .description {
-    font-size: 16px;
-    color: rgb(153, 153, 153);
-    padding: 20px 0px;
-    justify-content: wrap;
-    cursor: pointer;
+  font-size: 16px;
+  color: rgb(153, 153, 153);
+  padding: 20px 0px;
+  justify-content: wrap;
+  cursor: pointer;
 }
 
-.selectinput{
-    width: inherit;
-    height: inherit;
-    font-size: 18px;
-    color: #732e9c;
-    font-weight: bold;
-    border-color: #732e9c;
-    background-color: whitesmoke;
-    border-radius: 5px;
-    margin-left: -50px
+.selectinput {
+  width: inherit;
+  height: inherit;
+  font-size: 18px;
+  color: #732e9c;
+  font-weight: bold;
+  border-color: #732e9c;
+  background-color: whitesmoke;
+  border-radius: 5px;
 }
 
-.topicinput{
-    width: 100%;
-    margin-left: 190px ;
-    height: 50px;
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #732e9c;
-    background-color: whitesmoke;
-    border-color: #732e9c;
-    border-radius: 5px;
-    margin-left: 142px;
+.topicinput {
+  width: 100%;
 
+  height: 50px;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #732e9c;
+  background-color: whitesmoke;
+  border-color: #732e9c;
+  border-radius: 5px;
 }
-.questioninput{
-    background-color: whitesmoke;
-    display: flex;
-    width: 100%;
-    margin-left: 190px ;
-    height: 300px;
-    margin-top: -7px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #732e9c;
-    justify-content: flex-start;
-    place-content: flex-start;
-    flex-flow: wrap;
-    place-items: flex-start;
-    border-color: #732e9c;
-    border-radius: 5px;
-    margin-left: 142px;
-}
+.questioninput {
+  background-color: whitesmoke;
+  display: flex;
+  width: 100%;
 
+  height: 300px;
+  margin-top: -7px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #732e9c;
+  justify-content: flex-start;
+  place-content: flex-start;
+  flex-flow: wrap;
+  place-items: flex-start;
+  border-color: #732e9c;
+  border-radius: 5px;
+}
 
 .coursewrapper {
-    margin-top: 10px;
-    margin-left: 190px;
-    padding-left: 0px;
-    padding-right: 0px;
-    width: 100%;
-    
-    height: 50px;
+  margin-top: 10px;
+
+  padding-left: 50px;
+  padding-right: 50px;
+  width: 100%;
+
+  height: 50px;
 }
 
 .questionwrapper {
-    margin-top: 10px;
-    margin-left: 390px;
-    padding-left: 0px;
-    padding-right: 0px;
-    width: 100%;
-    
-    height: 50px;
+  margin-top: 30px;
+
+  padding-left: 50px;
+  padding-right: 50px;
+  width: 100%;
+
+  height: 50px;
+  text-align: center;
 }
 
 .topicwrapper {
-    margin-top: 30px;
-    margin-left: 390px;
-    padding-left: 0px;
-    padding-right: 0px;
-    width: 100;
-    
-    height: auto;
+  margin-top: 30px;
+
+  padding-left: 50px;
+  padding-right: 50px;
+  width: 100%;
+
+  height: auto;
+  text-align: center;
 }
-.button{
-    background-color :  #732e9c;
-    color: white;
-    font-size: 20px;
-    font-weight: bolder;
-    padding: 10px 20px;
-    border-radius: 4px;
-    border-color: #732e9c;
-    width: 200px;
-    height: 50px;
-    margin-top: 50px;
-    margin-left: 600px;
+.button {
+  background-color: #732e9c;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border-color: #732e9c;
+  width: 200px;
+  height: 50px;
+  margin-top: 50px;
 }
-.categories>h2{
-    color: rgb(255, 107, 84);
-    margin-top: -30px;
-    width: 300px;
-    
+.categories > h2 {
+  color: rgb(255, 107, 84);
+  margin-top: -30px;
+  width: 300px;
 }
 
 .coursestab {
-    display: flex;
-    place-content: flex-start;
-    align-items: center;
-    justify-content: flex-start;
-    
-    margin-top: -20px;
-    margin-left: 360px;
-    width: 70%;
-    height: 750px;
-    box-shadow: 3px 0px 6px 0px rgba(116, 12, 116, 0.75);
-    border-radius: 8px;
-    flex-flow: wrap;
+  display: flex;
+  place-content: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin-top: -20px;
+  margin-left: 360px;
+  width: 70%;
+  height: 750px;
+  box-shadow: 3px 0px 6px 0px rgba(116, 12, 116, 0.75);
+  border-radius: 8px;
+  flex-flow: wrap;
 }

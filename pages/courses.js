@@ -76,7 +76,7 @@ const Courses = () => {
         
          axios.post('http://localhost:3001/user_courses', {
             
-                user_id: user.id,
+                user_id: 12, // todo user.id, todo
                 courses_id: Object.keys(selectedCourses)
 
             

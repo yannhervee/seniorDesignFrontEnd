@@ -4,6 +4,7 @@ import ContentDashboard from '../components/ContentDashboard';
 import styles from '../styles/MyQuestions.module.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import Link from 'next/link';
 
 const Myquestions = () => {
     const [posts, setPosts] = useState([])
@@ -36,27 +37,26 @@ const Myquestions = () => {
        
         <LeftNav />
         <div className={styles.container}>
-
+            <h1 className={styles.title}> My Questions </h1>
 
        
-            
-               
-
                 {posts.map((post) => {
                     console.log("single post", post)
                     console.log("single post body", post.body)
                     return   <>
-                    <div className={styles.question}>
-                <div className={styles.userinfo}>
-                    <div className={styles.circle}>B</div>
-                </div>
-                                <div className={styles.questioninfo}>
-                                    <span className={styles.questioncontent}>{post.body}</span>
-                                    <span className={styles.topic}> {post.topic.name}</span>
-                                </div>
-                                <div className={styles.comments}> 5 comments </div>
-                                <div className={styles.course}>{post.topic.course_id}</div>
-                                </div>
+                    <Link href={`/forum/${post.id}`}>
+                        <div className={styles.question}>
+                            <div className={styles.userinfo}>
+                            <div className={styles.circle}>B</div>
+                            </div>
+                            <div className={styles.questioninfo}>
+                                <span className={styles.questioncontent}>{post.body}</span>
+                                <span className={styles.topic}> {post.topic.name}</span>
+                            </div>
+                            <div className={styles.comments}> 5 comments </div>
+                            <div className={styles.course}>{post.topic.course.name}</div>
+                        </div>
+                    </Link>
                             </>
                         
 
