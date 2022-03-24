@@ -12,8 +12,8 @@ const ForumItem = ({}) => {
   const router = useRouter()
   const {id} = router.query
   const [posts, setPosts] = useState([])
+  const [comments, setComments] = useState([])
   const [initialValues, setInitialValues] = useState([])
-
 
 
   useEffect(() => {
@@ -25,7 +25,16 @@ const ForumItem = ({}) => {
     axios.get(`http://localhost:3001/posts/${id}`)
     .then((res) => {
         console.log("post data", res)
-        setPosts(res.data);        
+        setPosts(res.data);
+        return axios.get("http://localhost:3001/comments", {
+            params: {
+                post_id: res.data.id, // ask why posts.id won't work
+            },
+        })
+        .then((res) => {
+            console.log("res comments", res);
+            setComments(res.data)
+        })      
     })
     .catch((e) => {
         console.log('error', e);
@@ -37,6 +46,19 @@ const ForumItem = ({}) => {
 
   const onSubmit = (values) => {
     console.log(values, "values");
+    console.log("values comment", values.comment)
+     return axios
+    .post("http://localhost:3001/comments", {
+        post_id: posts.id ,
+        user_id: 12, 
+        body: values.comment
+    })
+    .then((res) => {
+      console.log(res);
+      
+      
+    })
+    .catch(() => {}); 
     
   };
 
@@ -47,8 +69,8 @@ const ForumItem = ({}) => {
             <div className={styles.back}> <Link href="/myquestions"> &larr; back </Link></div> 
             <div className={styles.maincontent}>
                 <div className={styles.postdetails}>
-                    <h2 className={styles.course}> {posts.topic.course.name} </h2>
-                    <h2 className={styles.posttopic}> {posts.topic.name}</h2>
+                    <h2 className={styles.course}> posts.topic.course.name </h2>
+                    <h2 className={styles.posttopic}> posts.topic.name</h2>
                 </div>
                     <div className={styles.posttext}>
                         <p>{posts.body}</p>
@@ -58,7 +80,7 @@ const ForumItem = ({}) => {
                             <div className={styles.circle}>B</div>
                         </div>
                         <div className={styles.userinfo}>
-                            <span> {posts.user.name} </span>
+                            <span> posts.user.name </span>
                         </div>
                         <div className={styles.date}>
                             <span> asked {posts.created_at}</span>
@@ -68,23 +90,27 @@ const ForumItem = ({}) => {
                 
             </div>
             <h3 className={styles.header}> comments </h3>
-            <div className={styles.commentcontainer}>
-                
-                <div className={styles.commentsignature}>
-                    <div className={styles.commenteravatar}>
-                        <div className={styles.circle}>L</div>
-                    </div>
-                    <div className={styles.commenterinfo}>
-                        <span className={styles.commenter}>Lafayette Jean</span>
-                        <span className={styles.commenter}> Reliability: 2</span>
-                    </div>  
-                </div>
-                <div className={styles.comment}>
-                    <p> not really nice but you don't have a choice</p>
-                </div>
-                    
+            <div>
+                {comments.map((comment) => {
+                    return <>
+                            <div className={styles.commentcontainer}>
+                                <div className={styles.commentsignature}>
+                                    <div className={styles.commenteravatar}>
+                                        <div className={styles.circle}>L</div>
+                                    </div>
+                                    <div className={styles.commenterinfo}>
+                                        <span className={styles.commenter}> {comment.user.name }</span>
+                                        <span className={styles.commenter}> reliability: {comment.user.reliability } </span>
+                                    </div>  
+                                </div>
+                                <div className={styles.comment}>
+                                    <p> {comment.body} </p>
+                                </div>
+                            </div>
+                         </>
+                })}
                
-                
+                        
             </div>
 
             <div className={styles.makecommentcontainer}>
@@ -94,7 +120,9 @@ const ForumItem = ({}) => {
                         onSubmit={onSubmit}
                         initialValues={initialValues}
                         render={({ handleSubmit, form, submitting, pristine, values }) => (
-                            <form onSubmit={handleSubmit} className={styles.formbox}>
+                            <form className={styles.formbox} onSubmit={event => {
+                            handleSubmit().then(() => {form.reset();})}}
+                            >
                                 <Field
                                     name="comment"
                                     component="input"
@@ -108,12 +136,8 @@ const ForumItem = ({}) => {
                     />
                 </div>
 
-                
-
             </div>
             
-        
-
          </div>
       </>
     
