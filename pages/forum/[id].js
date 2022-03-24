@@ -96,7 +96,7 @@ const ForumItem = ({}) => {
                             <div className={styles.commentcontainer}>
                                 <div className={styles.commentsignature}>
                                     <div className={styles.commenteravatar}>
-                                        <div className={styles.circle}>L</div>
+                                        <div className={styles.circle}> {comment.user.name.charAt(0).toUpperCase()} </div>
                                     </div>
                                     <div className={styles.commenterinfo}>
                                         <span className={styles.commenter}> {comment.user.name }</span>
