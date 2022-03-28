@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import Link from "next/link";
 const ContentDashboard = () => {
     const router = useRouter()
   // const user = useSelector(selectUser)
@@ -27,7 +27,7 @@ const ContentDashboard = () => {
     axios
       .get("http://localhost:3001/user_courses/", {
         params: {
-          user_id: 14,
+          user_id: 12,
         },
       })
       .then((res) => {
@@ -65,7 +65,7 @@ const handleAddButton = () => {
       return (
         <>
           <div className={styles.cardwrapper}>
-            <div class={styles.card}>
+           <Link href={`course/${userCourse.course.id}`}><div class={styles.card}>
               <a className={styles.name}>{userCourse.course.name}</a>
               <button
                 className={styles.button}
@@ -75,6 +75,7 @@ const handleAddButton = () => {
                 Remove Course
               </button>
             </div>
+            </Link> 
           </div>
         </>
       );

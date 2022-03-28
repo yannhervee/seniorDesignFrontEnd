@@ -7,13 +7,18 @@ import styles from '../../styles/Post.module.css'
 import LeftNav from '../../components/LeftNav'
 import Link from 'next/link';
 import { Form, Field } from "react-final-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import{ faThumbsUp} from "@fortawesome/free-solid-svg-icons";
+import Skeleton from 'react-loading-skeleton'
 
 const ForumItem = ({}) => {
   const router = useRouter()
   const {id} = router.query
-  const [posts, setPosts] = useState([])
+  const [post, setPost] = useState()
   const [comments, setComments] = useState([])
+  const [like, setLike]= useState(0)
   const [initialValues, setInitialValues] = useState([])
+
 
 
   useEffect(() => {
@@ -25,7 +30,7 @@ const ForumItem = ({}) => {
     axios.get(`http://localhost:3001/posts/${id}`)
     .then((res) => {
         console.log("post data", res)
-        setPosts(res.data);
+        setPost(res.data);
         return axios.get("http://localhost:3001/comments", {
             params: {
                 post_id: res.data.id, // ask why posts.id won't work
@@ -34,6 +39,8 @@ const ForumItem = ({}) => {
         .then((res) => {
             console.log("res comments", res);
             setComments(res.data)
+            // count items
+            
         })      
     })
     .catch((e) => {
@@ -49,18 +56,41 @@ const ForumItem = ({}) => {
     console.log("values comment", values.comment)
      return axios
     .post("http://localhost:3001/comments", {
-        post_id: posts.id ,
+        post_id: post.id ,
         user_id: 12, 
         body: values.comment
     })
     .then((res) => {
-      console.log(res);
-      
-      
+      console.log(res);    
     })
     .catch(() => {}); 
     
   };
+
+  const handleLikeButton = (commentId, e) => {
+    e.preventDefault();
+    
+    axios.post("http://localhost:3001/reactions/reacted", {
+        
+            user_id: 12, // current user todo
+            comment_id: commentId,
+        
+    })
+    .then((res) => {
+        console.log("reaction checking", res)
+        setComments( (state) => {
+            const newState = [...state]
+            const index = newState.findIndex((c) => c.id === commentId)
+            console.log("index", index)
+            newState[index] = res.data[0]
+            return newState
+        })
+        
+    })
+}
+
+console.log(post)
+
 
   return (
       <>
@@ -69,21 +99,21 @@ const ForumItem = ({}) => {
             <div className={styles.back}> <Link href="/myquestions"> &larr; back </Link></div> 
             <div className={styles.maincontent}>
                 <div className={styles.postdetails}>
-                    <h2 className={styles.course}> posts.topic.course.name </h2>
-                    <h2 className={styles.posttopic}> posts.topic.name</h2>
+                    <h2 className={styles.course}>{post ? post.topic.course.name : <Skeleton width="30px" height='14px' />} </h2>
+                    <h2 className={styles.posttopic}>{post ? post.topic.name :<Skeleton width="30px" height='14px' />}</h2>
                 </div>
                     <div className={styles.posttext}>
-                        <p>{posts.body}</p>
+                        <p>{post ? post.body :<Skeleton width="30" height='14' />}</p>
                     </div>
                     <div className={styles.postsignature}>            
                         <div className={styles.useravatar}>
                             <div className={styles.circle}>B</div>
                         </div>
                         <div className={styles.userinfo}>
-                            <span> posts.user.name </span>
+                            <span> {post ? post.user.name : <Skeleton width="30" height='14' />} </span>
                         </div>
                         <div className={styles.date}>
-                            <span> asked {posts.created_at}</span>
+                            <span>{post ? `asked ${post.created_at}` :<Skeleton width="30" height='14' /> }</span>
                         </div>
 
                     </div>
@@ -101,6 +131,14 @@ const ForumItem = ({}) => {
                                     <div className={styles.commenterinfo}>
                                         <span className={styles.commenter}> {comment.user.name }</span>
                                         <span className={styles.commenter}> reliability: {comment.user.reliability } </span>
+                                        <span className={styles.like}> 
+                                            was this answer helpful?  
+                                            <button clasName={styles.buttonlike} onClick={(e) => handleLikeButton(comment.id, e)}>
+                                            <FontAwesomeIcon icon={faThumbsUp} style={{width:"18px", cursor:"pointer", marginLeft:"18px"}}/>
+                                            <span className={styles.count}> {comment.reactions_count} </span>
+                                            </button>
+                                         </span>
+                                         
                                     </div>  
                                 </div>
                                 <div className={styles.comment}>

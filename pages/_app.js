@@ -3,6 +3,8 @@ import '../styles/globals.css'
 import { Provider } from "react-redux"
 import store from "../app/store"
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 function MyApp({ Component, pageProps }) {
   return (
 

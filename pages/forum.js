@@ -4,6 +4,7 @@ import ContentDashboard from '../components/ContentDashboard';
 import styles from '../styles/MyQuestions.module.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Link from 'next/link';
 
 
 const Forum = () => {
@@ -45,6 +46,7 @@ const Forum = () => {
                     console.log("single post", post)
                     console.log("single post body", post.body)
                     return   <>
+                    <Link href={`forum/${post.id}`}>
                     <div className={styles.question}>
                 <div className={styles.userinfo}>
                     <div className={styles.circle}>B</div>
@@ -56,6 +58,7 @@ const Forum = () => {
                                 <div className={styles.comments}> 5 comments </div>
                                 <div className={styles.course}>{post.topic.course.name}</div>
                                 </div>
+                                </Link>
                             </>
                         
 

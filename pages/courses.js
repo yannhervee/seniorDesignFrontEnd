@@ -30,6 +30,7 @@ const Courses = () => {
             }
         })
         .then((res) => {
+            console.log("data courses", res)
             setCourses(res.data);        
         })
         .catch((e) => {
