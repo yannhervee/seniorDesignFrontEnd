@@ -159,3 +159,15 @@
   border-radius: 8px;
   flex-flow: wrap;
 }
+
+.suggestion{
+  cursor: pointer;
+  border-right: 1px solid purple;
+  border-left: 1px solid purple;
+  border-bottom: 1px solid purple;
+
+}
+
+.suggestion:hover{
+  background-color: grey;
+}

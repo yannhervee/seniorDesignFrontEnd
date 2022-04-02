@@ -32,9 +32,9 @@ const Myquestions = () => {
 
     
     return(
-
+            
         <>
-       
+       console.log("posts", posts)
         <LeftNav />
         <div className={styles.container}>
             <h1 className={styles.title}> My Questions </h1>

@@ -15,6 +15,9 @@ const composeValidators =
     );
 
 const ContentPostQuestion = () => {
+  const [topics, setTopics] = useState([])
+  const [text, setText] = useState('')
+  const [suggestions, setSuggestions] = useState([])
   const [courses, setCourses] = useState([]);
   const [initialValues, setInitialValues] = useState([])
   const router = useRouter();
@@ -30,6 +33,18 @@ const ContentPostQuestion = () => {
       .catch(() => {});
   }, []);
 
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/topics")
+      .then((res) => {
+        console.log("topic response", res.data);
+        setTopics(res.data);
+        
+      })
+      .catch(() => {});
+  }, []);
+
   const onSubmit = (values) => {
     console.log(values, "values");
     return axios
@@ -40,6 +55,25 @@ const ContentPostQuestion = () => {
       })
       .catch(() => {});
   };
+
+  const onChangeHandler = (text) => {
+    console.log("text in onchange", text)
+    let matches = []
+    if(text.length > 0) {
+      matches = topics.filter(topic => {
+        const regex = new RegExp(`${text}`);
+        return topic.name.match(regex)
+      })
+    }
+    console.log("matches", matches)
+    setSuggestions(matches)
+    setText(text)
+  }
+
+  const onSuggestHandler = (text) => {
+    setText(text);
+    setSuggestions([])
+  }
 
   return (
     <>
@@ -115,8 +149,24 @@ const ContentPostQuestion = () => {
                     <input
                       {...input}
                       type="text"
+                      onChange={e => onChangeHandler(e.target.value)}
                       className={styles.topicinput}
+                      value={text}
+                      onBlur={() => {
+                        setTimeout(() => {
+                          setSuggestions([])
+                        }, 100)
+                      }}
                     />
+                    {suggestions && suggestions.map((suggestion, i) =>
+                    <div 
+                      key={i} 
+                      className={styles.suggestion}
+                      onClick={() => onSuggestHandler(suggestion.name)}
+                      >
+                        {suggestion.name}
+                    </div>
+                    )}
                     {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}
