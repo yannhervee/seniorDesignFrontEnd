@@ -57,7 +57,7 @@ const CourseForum = () => {
                                         <span className={styles.questioncontent}>{post.body}</span>
                                         <span className={styles.topic}> {post.topic.name}</span>
                                     </div>
-                                    <div className={styles.comments}> 5 comments </div>
+                                    <div className={styles.comments}> {post.comments.length} comments </div>
                                     <div className={styles.course}>{post.topic.course.name}</div>
                                     </div>
                                     </Link>

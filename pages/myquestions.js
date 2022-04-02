@@ -34,7 +34,7 @@ const Myquestions = () => {
     return(
             
         <>
-       console.log("posts", posts)
+     
         <LeftNav />
         <div className={styles.container}>
             <h1 className={styles.title}> My Questions </h1>
@@ -53,7 +53,7 @@ const Myquestions = () => {
                                 <span className={styles.questioncontent}>{post.body}</span>
                                 <span className={styles.topic}> {post.topic.name}</span>
                             </div>
-                            <div className={styles.comments}> 5 comments </div>
+                            <div className={styles.comments}> {post.comments.length} comments </div>
                             <div className={styles.course}>{post.topic.course.name}</div>
                         </div>
                     </Link>
