@@ -67,6 +67,15 @@
 
 }
 
+.editbutton{
+    font-weight: bold;
+    font-size: 16px;
+    color: purple;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
 .comments {
     margin-left: 25px;
     color: #732e9c;

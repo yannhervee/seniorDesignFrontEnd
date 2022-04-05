@@ -1,6 +1,6 @@
 
 import LeftNav from '../components/LeftNav';
-import Header from '../components/Header';
+
 
 import ContentPostQuestion from '../components/ContentPostQuestion';
 

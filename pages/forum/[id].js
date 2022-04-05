@@ -11,6 +11,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import{ faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import Skeleton from 'react-loading-skeleton'
 
+
+const updateImmutable = (list, payload) => {
+	const data = list.find(d => d.id === payload.id);
+	if (data) {
+		const index = list.findIndex(d => d.id === payload.id);
+
+		return [
+			...list.slice(0, index),
+			{ ...data, ...payload },
+			...list.slice(index + 1),
+		];
+	}
+
+	return list;
+};
+
+
 const ForumItem = ({}) => {
   const router = useRouter()
   const {id} = router.query
@@ -18,9 +35,12 @@ const ForumItem = ({}) => {
   const [comments, setComments] = useState([])
   const [like, setLike]= useState(0)
   const [initialValues, setInitialValues] = useState([])
+  const [editComment, setEditComment] = useState(false)
+  const [commentBody, setCommentBody] = useState('')
+  const [commentUpdate, setCommentUpdate] = useState({})
 
 
-
+ 
   useEffect(() => {
     if (!router.isReady) return
 
@@ -48,6 +68,9 @@ const ForumItem = ({}) => {
     })
 }, [router.isReady, router.query])
 
+
+
+
   //href={`/forums/${id}`}
   console.log( router.isReady)
 
@@ -66,6 +89,30 @@ const ForumItem = ({}) => {
     .catch(() => {}); 
     
   };
+
+  const onEditComment = (e) => {
+      e.preventDefault();
+    return axios
+    .put(`http://localhost:3001/comments/${commentUpdate.id}`, {
+        
+        body: commentBody
+    })
+    .then((res) => {
+      console.log(res);  
+      
+        setCommentUpdate()
+        setEditComment(!editComment)
+        
+        const newComment = commentUpdate;
+        newComment.body = commentBody;
+
+        const newComments = updateImmutable(comments, newComment);
+        setComments(newComments);
+        setCommentBody('');
+    })
+    .catch(() => {}); 
+    
+  }
 
   const handleLikeButton = (commentId, e) => {
     e.preventDefault();
@@ -87,7 +134,18 @@ const ForumItem = ({}) => {
         })
         
     })
-}
+}   
+    const handleEditButton = (e, comment) => {
+        e.preventDefault();
+        setCommentBody(comment.body);
+        setCommentUpdate(comment)
+        setEditComment(!editComment)
+
+        
+
+    }
+
+
 
 console.log(post)
 
@@ -119,7 +177,7 @@ console.log(post)
                     </div>
                 
             </div>
-            <h3 className={styles.header}> comments </h3>
+            <h3 className={styles.header}> Comments </h3>
             <div>
                 {comments.map((comment) => {
                     return <>
@@ -132,12 +190,30 @@ console.log(post)
                                         <span className={styles.commenter}> {comment.user.name }</span>
                                         <span className={styles.commenter}> reliability: {comment.user.reliability } </span>
                                         <span className={styles.like}> 
-                                            was this answer helpful?  
+                                            Was this answer helpful?  
                                             <button clasName={styles.buttonlike} onClick={(e) => handleLikeButton(comment.id, e)}>
                                             <FontAwesomeIcon icon={faThumbsUp} style={{width:"18px", cursor:"pointer", marginLeft:"18px"}}/>
                                             <span className={styles.count}> {comment.reactions_count} </span>
                                             </button>
                                          </span>
+                                        
+                                        <button className={styles.buttonedit} onClick={(e) => handleEditButton(e, comment)} >Edit</button>
+                                        
+                                     { editComment && commentUpdate && commentUpdate.id === comment.id ?   <div className={styles.editbox}>
+                                            
+                                                        <input
+                                                            name="comment"
+                                                            onChange={(e) => setCommentBody(e.target.value)}
+                                                            type="text"
+                                                            className={styles.inputeditcomment}
+                                                            placeholder="Type here ..."
+                                                            value={commentBody}
+                                                        />
+                                                        <button type="submit" className={styles.update} onClick={(e) => onEditComment(e)}> Update </button>
+                                                    
+                            
+                                        </div> : ""}  
+                                    
                                          
                                     </div>  
                                 </div>

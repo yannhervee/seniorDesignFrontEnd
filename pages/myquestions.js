@@ -1,6 +1,4 @@
 import LeftNav from '../components/LeftNav';
-import Header from '../components/Header';
-import ContentDashboard from '../components/ContentDashboard';
 import styles from '../styles/MyQuestions.module.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -38,7 +36,7 @@ const Myquestions = () => {
         <LeftNav />
         <div className={styles.container}>
             <h1 className={styles.title}> My Questions </h1>
-
+            
        
                 {posts.map((post) => {
                     console.log("single post", post)
@@ -52,24 +50,21 @@ const Myquestions = () => {
                             <div className={styles.questioninfo}>
                                 <span className={styles.questioncontent}>{post.body}</span>
                                 <span className={styles.topic}> {post.topic.name}</span>
+                                <Link href={`edit/${post.id}`}>
+                                <button className={styles.editbutton}>Edit</button>
+                                </Link>
+
                             </div>
                             <div className={styles.comments}> {post.comments.length} comments </div>
                             <div className={styles.course}>{post.topic.course.name}</div>
                         </div>
                     </Link>
                             </>
-                        
-
-                      
                 })}
                      
 
             </div>
            
-
-        
-        
-   
         </>
     )
 }
