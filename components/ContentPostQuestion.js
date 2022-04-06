@@ -6,13 +6,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 const required = (value) => (value ? undefined : "Required");
-const composeValidators =
-  (...validators) =>
-  (value) =>
-    validators.reduce(
-      (error, validator) => error || validator(value),
-      undefined
-    );
 
 const ContentPostQuestion = () => {
   const [topics, setTopics] = useState([])
@@ -21,7 +14,7 @@ const ContentPostQuestion = () => {
   const [courses, setCourses] = useState([]);
   const [initialValues, setInitialValues] = useState([])
   const router = useRouter();
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:3001/courses")
@@ -134,7 +127,7 @@ const ContentPostQuestion = () => {
                 type="text"
                 name="topic"
                 component="input"
-                //validate={required}
+                validate={required}
               >
                 {({ input, meta }) => (
                   <div
@@ -182,7 +175,7 @@ const ContentPostQuestion = () => {
                 name="question"
                 className={styles.questioninput}
                 component="input"
-                //validate={required}
+                validate={required}
               >
                 {({ input, meta }) => (
                   <div
