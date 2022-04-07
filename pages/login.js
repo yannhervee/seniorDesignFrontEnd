@@ -1,14 +1,37 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import logo from '../public/Translogo.png' 
 import styles from '../styles/Register.module.css'
+import withUser from '../components/withUser';
+import { axiosInstance, setAuthInfo } from '../utils/auth';
+import { register } from '../features/userSlice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
+    const dispatch = useDispatch()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const loginUser = async event => {
         event.preventDefault()
+
+        axiosInstance().post('http://localhost:3001/auth/sign_in', {            
+            email: email,
+            password: password            
+        })
+        .then((res) => {
+            console.log("resdata", res);           
+            setAuthInfo(res.headers)
+            dispatch(register(res.data.data)) 
+            router.push('/dashboard');
+        })
+        .catch((e) => {
+            // TODO: handle user with accounts
+            // TODO: validations
+            console.log('error', e);
+        })  
 
 
     }
@@ -21,11 +44,11 @@ const Login = () => {
             <form onSubmit={loginUser}>
                 <div>
                     <label for="email" className={styles.label}>Email *</label>
-                    <input type="email" id="email" placeholder="email" className={styles.input} required />
+                    <input type="email" id="email" placeholder="email" className={styles.input} required onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div>
                     <label for="password" className={styles.label} >Password *</label>
-                    <input type="password" id="password" placeholder="password" className={styles.input} required />
+                    <input type="password" id="password" placeholder="password" className={styles.input} required  onChange={e => setPassword(e.target.value)}/>
                 </div>
               
                 <div>
@@ -48,4 +71,5 @@ const Login = () => {
     )
 }
 
-export default Login;
+
+export default withUser(Login);

@@ -4,38 +4,56 @@ import React from 'react'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import{ faChalkboardTeacher, faUser, faCog, faRocket, faNewspaper, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
-import {  useRouter } from 'next/router'
+import Router from 'next/router'
+import { axiosInstance, removeDocumentAuthCookies } from '../utils/auth';
+import { useDispatch } from 'react-redux';
+import { register } from "../features/userSlice";
 
 const LeftNav = () => {
-    const router = useRouter();
+    const dispatch = useDispatch()
+
+    const onLogout = () => {
+        axiosInstance().delete('http://localhost:3001/auth/sign_out')
+        .then((res) => {
+            removeDocumentAuthCookies()
+            Router
+            .push('/')
+            .then(() => {
+                dispatch(register(null))
+            })
+            
+        })
+        .catch()
+    }
+
+
     return (
       <div className={styles.navcontainer}>
             <div className={styles.wrapper}>
                 <ul>
                     <li><FontAwesomeIcon icon={faRocket} style={{width:"18px", cursor:"pointer"}}/>
                         <Link href="/dashboard"> 
-                        <a className={router.pathname== "/dashboard" ? styles.active : ""}> Dashboard</a>
+                        <a className={Router.pathname== "/dashboard" ? styles.active : ""}> Dashboard</a>
                         </Link>
                     </li>
                     <li><FontAwesomeIcon icon={faChalkboardTeacher} style={{width:"18px", cursor:"pointer"}}/>
                         <Link href="/myquestions"> 
-                        <a className={router.pathname== "/myquestions" ? styles.active : ""}> My Questions</a>
+                        <a className={Router.pathname== "/myquestions" ? styles.active : ""}> My Questions</a>
                         </Link>
                     </li>
                     <li><FontAwesomeIcon icon={faNewspaper} style={{width:"18px", cursor:"pointer"}}/>
                         <Link href="/forum">
-                        <a className={router.pathname== "/forum" ? styles.active : ""}> Forum</a>
+                        <a className={Router.pathname== "/forum" ? styles.active : ""}> Forum</a>
                         </Link>
                     </li>
                     <li><FontAwesomeIcon icon={faUser} style={{width:"18px", cursor:"pointer"}}/>
                         <Link href="/profile"> 
-                        <a className={router.pathname== "/settings" ? styles.active : ""}> My Profile</a>
+                        <a className={Router.pathname== "/settings" ? styles.active : ""}> My Profile</a>
                         </Link>
                     </li>
                     <li><FontAwesomeIcon icon={faSignOutAlt} style={{width:"18px", cursor:"pointer"}}/>
-                        <Link href="/login">
-                        <a className={router.pathname== "/logout" ? styles.active : ""}> logout</a>
-                        </Link>
+                        <button onClick={onLogout} className={Router.pathname== "/logout" ? styles.active : ""}> logout</button>
+                        
                     </li>
                 </ul>
 

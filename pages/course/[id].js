@@ -2,8 +2,8 @@ import LeftNav from '../../components/LeftNav';
 import { useRouter } from 'next/router'
 import styles from '../../styles/MyQuestions.module.css'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import Link from 'next/link';
+import { axiosInstance } from '../../utils/auth';
 
 
 const CourseForum = () => {
@@ -14,7 +14,7 @@ const CourseForum = () => {
         console.log('running effect')
       //  console.log(user, 'department')
         // Promises
-        axios.get('http://localhost:3001/posts/', {
+        axiosInstance().get('http://localhost:3001/posts/', {
             params: {
                 course_id: id
             },

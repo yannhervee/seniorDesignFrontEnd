@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import styles from '../styles/Departments.module.css'
@@ -7,6 +6,7 @@ import { useRouter } from 'next/router'
 import {  chooseCourses } from "../features/userCourseSlice"
 import { removeListener } from '@reduxjs/toolkit';
 import { selectUser } from '../features/userSlice';
+import { axiosInstance } from '../utils/auth';
 
 // useEffect, useCallback, useState, useRef, useMemo
 const Courses = () => {
@@ -24,7 +24,7 @@ const Courses = () => {
         console.log('running effect')
 
         // Promises
-        axios.get('http://localhost:3001/courses', {
+        axiosInstance().get('http://localhost:3001/courses', {
             params: {
                 departments: router.query.departments.split(',')
             }

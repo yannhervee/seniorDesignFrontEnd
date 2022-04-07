@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import departmentstyles from '../styles/Departments.module.css'
 import Link from 'next/link'
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from '../features/userSlice';
+import { axiosInstance } from '../utils/auth';
+
 
 // useEffect, useCallback, useState, useRef, useMemo
 const Departments = () => {
@@ -17,7 +18,7 @@ const Departments = () => {
         console.log('running effect')
       //  console.log(user, 'department')
         // Promises
-        axios.get('http://localhost:3001/departments')
+        axiosInstance().get('http://localhost:3001/departments')
         .then((res) => {
             setDepartments(res.data);        
         })

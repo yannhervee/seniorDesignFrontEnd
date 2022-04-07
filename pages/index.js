@@ -4,8 +4,7 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import logo from '../public/Translogo.png' 
 
-
-export default function Home() {
+const Home = () => {
   return (
     <div className={styles.page1}>
       <div className={`${styles.split} ${styles.right}`}>
@@ -33,3 +32,6 @@ export default function Home() {
     </div>
   )
 }
+
+
+export default Home;

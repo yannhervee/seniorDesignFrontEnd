@@ -3,8 +3,8 @@ import Header from '../components/Header';
 import ContentDashboard from '../components/ContentDashboard';
 import styles from '../styles/MyQuestions.module.css'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import Link from 'next/link';
+import { axiosInstance } from '../utils/auth';
 
 
 const Forum = () => {
@@ -13,7 +13,7 @@ const Forum = () => {
         console.log('running effect')
       //  console.log(user, 'department')
         // Promises
-        axios.get('http://localhost:3001/posts/', {
+        axiosInstance().get('http://localhost:3001/posts/', {
            
         })
         .then((res) => {

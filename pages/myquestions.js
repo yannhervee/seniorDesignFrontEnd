@@ -1,8 +1,8 @@
 import LeftNav from '../components/LeftNav';
 import styles from '../styles/MyQuestions.module.css'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Link from 'next/link';
+import { axiosInstance } from '../utils/auth';
 
 const Myquestions = () => {
     const [posts, setPosts] = useState([])
@@ -10,7 +10,7 @@ const Myquestions = () => {
         console.log('running effect')
       //  console.log(user, 'department')
         // Promises
-        axios.get('http://localhost:3001/posts/', {
+        axiosInstance().get('http://localhost:3001/posts/', {
             params: {
                 user_id: 12
             }

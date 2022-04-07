@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +5,7 @@ import Image from 'next/image'
 import logo from '../public/Translogo.png' 
 import styles from '../styles/Register.module.css'
 import { register } from "../features/userSlice"
-
+import { axiosInstance, setAuthInfo } from '../utils/auth';
 
 const Register = () => {
     const router = useRouter()
@@ -27,34 +26,22 @@ const Register = () => {
     const registerUser = async e => {
         e.preventDefault()
 
-         axios.post('http://localhost:3001/auth', {
-            
+         axiosInstance().post('http://localhost:3001/auth', {            
                 name: name,
                 email: email,
                 password: password, 
                 password_confirmation: confirmPassword,
                 role: role,
                 reliability: 0
-                
-            
         })
         .then((res) => {
             console.log("resdata", res);
             console.log("registerpage" , res.data.data.id) ; 
             console.log("registerpage" , res.data.data.email) ; 
             console.log("registerpage" , res.data.data.name) ; 
-            // TODO: fetch data from res
-            dispatch(register({
-                name: res.data.data.name, 
-                email: res.data.data.email,
-                role: res.data.data.role,
-                reliability: 0,
-                id: res.data.data.id
-            })
-            ) 
+            setAuthInfo(res.headers)
+            dispatch(register(res.data.data)) 
             router.push('/departments');
-            return;
-             
         })
         .catch((e) => {
             // TODO: handle user with accounts
