@@ -7,13 +7,17 @@ import {  chooseCourses } from "../features/userCourseSlice"
 import { removeListener } from '@reduxjs/toolkit';
 import { selectUser } from '../features/userSlice';
 import { axiosInstance } from '../utils/auth';
+import axios from 'axios';
+import withUser from '../components/withUser';
 
 // useEffect, useCallback, useState, useRef, useMemo
 const Courses = () => {
     const [selectedCourses, setSelectedCourses] = useState({})
     const [courses, setCourses] = useState([])
+    const [coursesToAdd, setCoursesToAdd] = useState([])
     //const dispatch = useDispatch() 
     const user = useSelector(selectUser)
+   
     console.log("course state redux", user)
 
     const router = useRouter();
@@ -29,9 +33,10 @@ const Courses = () => {
                 departments: router.query.departments.split(',')
             }
         })
-        .then((res) => {
+        .then((res) => {     
             console.log("data courses", res)
-            setCourses(res.data);        
+            setCourses(res.data);     
+       
         })
         .catch((e) => {
             console.log('error', e);
@@ -75,9 +80,8 @@ const Courses = () => {
 
         
         
-         axios.post('http://localhost:3001/user_courses', {
+         axiosInstance().post('http://localhost:3001/user_courses', {
             
-                user_id: 12, // todo user.id, todo
                 courses_id: Object.keys(selectedCourses)
 
             
@@ -108,4 +112,4 @@ const Courses = () => {
     )
 }
 
-export default Courses;
+export default withUser(Courses);

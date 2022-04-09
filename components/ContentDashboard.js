@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { axiosInstance } from "../utils/auth";
+import withUser from "./withUser";
+
 const ContentDashboard = () => {
     const router = useRouter()
   // const user = useSelector(selectUser)
@@ -24,12 +27,8 @@ const ContentDashboard = () => {
     console.log("running effect");
     //  console.log(user, 'department')
     // Promises
-    axios
-      .get("http://localhost:3001/user_courses/", {
-        params: {
-          user_id: 12,
-        },
-      })
+    axiosInstance()
+      .get("http://localhost:3001/user_courses/")
       .then((res) => {
         console.log("responaw", res.data);
         setUserCourses(res.data);
@@ -47,7 +46,7 @@ const ContentDashboard = () => {
 
     console.log("delete id");
     if (user_course) {
-      axios.delete(deleteUrl).then(() => {
+      axiosInstance().delete(deleteUrl).then(() => {
         setUserCourses(
           userCourses.filter((course) => course.id !== user_course)
         );

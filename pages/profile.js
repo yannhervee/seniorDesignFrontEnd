@@ -3,6 +3,7 @@ import styles from '../styles/Profile.module.css'
 import{ faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link'
+import withUser from '../components/withUser';
 
 const Profile = () => {
 
@@ -31,4 +32,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default withUser(Profile);

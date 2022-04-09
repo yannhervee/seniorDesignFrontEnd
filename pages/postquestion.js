@@ -3,6 +3,7 @@ import LeftNav from '../components/LeftNav';
 
 
 import ContentPostQuestion from '../components/ContentPostQuestion';
+import withUser from '../components/withUser';
 
 const Postquestion = () => {
 
@@ -19,4 +20,5 @@ const Postquestion = () => {
     )
 }
 
-export default Postquestion;
+
+export default withUser(Postquestion);

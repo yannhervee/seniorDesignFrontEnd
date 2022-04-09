@@ -3,6 +3,7 @@ import LeftNav from '../../components/LeftNav';
 
 
 import ContentEditPost from '../../components/ContentEditPost';
+import withUser from '../../components/withUser';
 
 const EditPost = () => {
 
@@ -19,4 +20,4 @@ const EditPost = () => {
     )
 }
 
-export default EditPost;
+export default withUser(EditPost);

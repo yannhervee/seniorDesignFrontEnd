@@ -10,6 +10,8 @@ import { Form, Field } from "react-final-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import{ faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import Skeleton from 'react-loading-skeleton'
+import { axiosInstance } from '../../utils/auth';
+import withUser from '../../components/withUser';
 
 
 const updateImmutable = (list, payload) => {
@@ -38,8 +40,22 @@ const ForumItem = ({}) => {
   const [editComment, setEditComment] = useState(false)
   const [commentBody, setCommentBody] = useState('')
   const [commentUpdate, setCommentUpdate] = useState({})
+  const [currentUser, setCurrentUser] = useState([])
 
 
+  useEffect(() => {
+    
+
+    axiosInstance().get('http://localhost:3001/users/fetch_current_user')
+    .then((res) => {
+        console.log("check hereh", res.data)
+               setCurrentUser(res.data)
+    })
+    .catch(() => {
+        //
+    })
+
+}, [])
  
   useEffect(() => {
     if (!router.isReady) return
@@ -47,11 +63,11 @@ const ForumItem = ({}) => {
     console.log('running effect')
 
     // Promises
-    axios.get(`http://localhost:3001/posts/${id}`)
+    axiosInstance().get(`http://localhost:3001/posts/${id}`)
     .then((res) => {
         console.log("post data", res)
         setPost(res.data);
-        return axios.get("http://localhost:3001/comments", {
+        return axiosInstance().get("http://localhost:3001/comments", {
             params: {
                 post_id: res.data.id, // ask why posts.id won't work
             },
@@ -77,10 +93,9 @@ const ForumItem = ({}) => {
   const onSubmit = (values) => {
     console.log(values, "values");
     console.log("values comment", values.comment)
-     return axios
+     return axiosInstance()
     .post("http://localhost:3001/comments", {
         post_id: post.id ,
-        user_id: 12, 
         body: values.comment
     })
     .then((res) => {
@@ -92,7 +107,7 @@ const ForumItem = ({}) => {
 
   const onEditComment = (e) => {
       e.preventDefault();
-    return axios
+    return axiosInstance()
     .put(`http://localhost:3001/comments/${commentUpdate.id}`, {
         
         body: commentBody
@@ -117,9 +132,8 @@ const ForumItem = ({}) => {
   const handleLikeButton = (commentId, e) => {
     e.preventDefault();
     
-    axios.post("http://localhost:3001/reactions/reacted", {
-        
-            user_id: 12, // current user todo
+    axiosInstance().post("http://localhost:3001/reactions/reacted", {
+        // current user todo
             comment_id: commentId,
         
     })
@@ -144,7 +158,18 @@ const ForumItem = ({}) => {
         
 
     }
-
+    const getEditButtonClassName = (commenter) => {
+        console.log("commeterid", commenter)
+        console.log("currentuser", currentUser)
+        return currentUser.id === commenter ?  styles.buttonedit : styles.disablebutton
+    }
+    const getLikeButtonClassName = (commenter) => {
+        console.log("in like")
+        console.log("commeterid", commenter)
+        console.log("currentuser", currentUser.id)
+        return currentUser.id === commenter ?  styles.buttonedit : styles.disablebutton
+        //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
+    }
 
 
 console.log(post)
@@ -190,14 +215,16 @@ console.log(post)
                                         <span className={styles.commenter}> {comment.user.name }</span>
                                         <span className={styles.commenter}> reliability: {comment.user.reliability } </span>
                                         <span className={styles.like}> 
-                                            Was this answer helpful?  
-                                            <button clasName={styles.buttonlike} onClick={(e) => handleLikeButton(comment.id, e)}>
-                                            <FontAwesomeIcon icon={faThumbsUp} style={{width:"18px", cursor:"pointer", marginLeft:"18px"}}/>
-                                            <span className={styles.count}> {comment.reactions_count} </span>
+                                            Was this answer helpful?  &nbsp;
+                                            <button clasName={getLikeButtonClassName(comment.user_id)} onClick={(e) => handleLikeButton(comment.id, e)}>
+                                                <FontAwesomeIcon icon={faThumbsUp} style={{width:"18px", cursor:"pointer", marginLeft:"18px"}}/>
                                             </button>
-                                         </span>
+                                            </span>
+                                            <span className={styles.count}> {comment.reactions_count} </span>
+                                           
+                                         
                                         
-                                        <button className={styles.buttonedit} onClick={(e) => handleEditButton(e, comment)} >Edit</button>
+                                        <button className={getEditButtonClassName(comment.user_id)} onClick={(e) => handleEditButton(e, comment)} >Edit</button>
                                         
                                      { editComment && commentUpdate && commentUpdate.id === comment.id ?   <div className={styles.editbox}>
                                             
@@ -209,7 +236,7 @@ console.log(post)
                                                             placeholder="Type here ..."
                                                             value={commentBody}
                                                         />
-                                                        <button type="submit" className={styles.update} onClick={(e) => onEditComment(e)}> Update </button>
+                                                        <button type="submit"  className={styles.update} onClick={(e) => onEditComment(e)}> Update </button>
                                                     
                             
                                         </div> : ""}  
@@ -223,8 +250,7 @@ console.log(post)
                             </div>
                          </>
                 })}
-               
-                        
+                          
             </div>
 
             <div className={styles.makecommentcontainer}>
@@ -259,4 +285,4 @@ console.log(post)
 }
 
 
-export default ForumItem
+export default withUser(ForumItem)

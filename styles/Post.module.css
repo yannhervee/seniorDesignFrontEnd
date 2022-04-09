@@ -16,7 +16,9 @@
 }
 
 .buttonedit{
-    margin-left: 60px;
+    margin-left: 30px;
+    height: 30px;
+    width: 50px;
 }
 
 .back {
@@ -132,9 +134,7 @@
     margin-left: 15px;
 
 }
-.commenteravatar{
 
-}
 
 .comment{
     background-color: #cfd0d1;
@@ -193,6 +193,10 @@
     border-color: #732e9c;
 }
 
+.disablebutton{
+    display: none;
+}
+
 .header{
     justify-content: center;
     height: fit-content;
@@ -211,6 +215,7 @@
     padding-left: 7px;
     font-size: 18px;
 }
+
 
 .editbox{
     margin-top: 50px;

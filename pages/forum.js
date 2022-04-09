@@ -5,6 +5,7 @@ import styles from '../styles/MyQuestions.module.css'
 import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { axiosInstance } from '../utils/auth';
+import withUser from '../components/withUser';
 
 
 const Forum = () => {
@@ -67,13 +68,9 @@ const Forum = () => {
                      
                 
             </div>
-           
-
-        
-        
-   
+              
         </>
     )
 }
 
-export default Forum;
+export default withUser(Forum);

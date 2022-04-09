@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Form, Field } from "react-final-form";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { axiosInstance } from "../utils/auth";
 
 const required = (value) => (value ? undefined : "Required");
 
@@ -16,7 +17,7 @@ const ContentPostQuestion = () => {
   const router = useRouter();
   
   useEffect(() => {
-    axios
+    axiosInstance()
       .get("http://localhost:3001/courses")
       .then((res) => {
         console.log(res);
@@ -26,9 +27,8 @@ const ContentPostQuestion = () => {
       .catch(() => {});
   }, []);
 
-
   useEffect(() => {
-    axios
+    axiosInstance()
       .get("http://localhost:3001/topics")
       .then((res) => {
         console.log("topic response", res.data);
@@ -40,7 +40,7 @@ const ContentPostQuestion = () => {
 
   const onSubmit = (values) => {
     console.log(values, "values");
-    return axios
+    return axiosInstance()
       .post("http://localhost:3001/posts", values)
       .then((res) => {
         console.log(res);
@@ -128,6 +128,7 @@ const ContentPostQuestion = () => {
                 name="topic"
                 component="input"
                 validate={required}
+                
               >
                 {({ input, meta }) => (
                   <div

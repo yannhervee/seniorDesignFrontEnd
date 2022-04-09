@@ -89,5 +89,5 @@ const Departments = () => {
     ) 
 }
 
-export default Departments;
+export default withUser(Departments);
 

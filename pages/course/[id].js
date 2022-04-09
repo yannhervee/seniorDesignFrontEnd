@@ -4,6 +4,7 @@ import styles from '../../styles/MyQuestions.module.css'
 import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { axiosInstance } from '../../utils/auth';
+import withUser from '../../components/withUser';
 
 
 const CourseForum = () => {
@@ -48,7 +49,7 @@ const CourseForum = () => {
                         console.log("single post", post)
                         console.log("single post body", post.body)
                         return   <>
-                        <Link href={`forum/${post.id}`}>
+                        <Link href={`../forum/${post.id}`}>
                         <div className={styles.question}>
                     <div className={styles.userinfo}>
                         <div className={styles.circle}>B</div>
@@ -62,12 +63,9 @@ const CourseForum = () => {
                                     </div>
                                     </Link>
                                 </>
-                            
-    
                           
                     })}
-                         
-                    
+                                      
                 </div>
                
     
@@ -79,4 +77,5 @@ const CourseForum = () => {
     )
 }
 
-export default CourseForum;
+
+export default withUser(CourseForum);

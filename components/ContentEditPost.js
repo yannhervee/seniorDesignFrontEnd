@@ -5,6 +5,7 @@ import { Form, Field } from "react-final-form";
 import axios from "axios";
 
 import { useRouter } from "next/router";
+import { axiosInstance } from "../utils/auth";
 
 const required = (value) => (value ? undefined : "Required");
 const composeValidators =
@@ -16,6 +17,7 @@ const composeValidators =
     );
 
 const ContentEditPost = () => {
+  
   const [topics, setTopics] = useState([])
   const [text, setText] = useState('')
   const [suggestions, setSuggestions] = useState([])
@@ -37,7 +39,7 @@ const ContentEditPost = () => {
     console.log('running effect')
 
     // Promises
-    axios.get(`http://localhost:3001/posts/${id}/edit`)
+    axiosInstance().get(`http://localhost:3001/posts/${id}/edit`)
     .then((res) => {
         console.log("edit post data", res)
         
@@ -55,7 +57,7 @@ const ContentEditPost = () => {
 //console.log("INITIAL DATA", post)
 
   useEffect(() => {
-    axios
+    axiosInstance()
       .get("http://localhost:3001/courses")
       .then((res) => {
         console.log(res);
@@ -66,7 +68,7 @@ const ContentEditPost = () => {
 
 
   useEffect(() => {
-    axios
+    axiosInstance()
       .get("http://localhost:3001/topics")
       .then((res) => {
         console.log("topic response", res.data);
@@ -84,7 +86,7 @@ const ContentEditPost = () => {
         topic_id: topicId,
       }
     console.log(updateFields, "values");
-    return axios
+    return axiosInstance()
       .put(`http://localhost:3001/posts/${id}`, updateFields)
       .then((res) => {
         console.log(res);
