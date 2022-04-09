@@ -40,6 +40,13 @@ const ContentPostQuestion = () => {
 
   const onSubmit = (values) => {
     console.log(values, "values");
+    if(text){
+      values.topic = text
+    } else{
+      values.topic = "No Topic"
+    }
+    
+    console.log(values, "values");
     return axiosInstance()
       .post("http://localhost:3001/posts", values)
       .then((res) => {
@@ -49,7 +56,7 @@ const ContentPostQuestion = () => {
       .catch(() => {});
   };
 
-  const onChangeHandler = (text) => {
+   const onChangeHandler = (text) => {
     console.log("text in onchange", text)
     let matches = []
     if(text.length > 0) {
@@ -66,7 +73,7 @@ const ContentPostQuestion = () => {
   const onSuggestHandler = (text) => {
     setText(text);
     setSuggestions([])
-  }
+  } 
 
   return (
     <>
@@ -127,7 +134,9 @@ const ContentPostQuestion = () => {
                 type="text"
                 name="topic"
                 component="input"
-                validate={required}
+                
+                
+                
                 
               >
                 {({ input, meta }) => (

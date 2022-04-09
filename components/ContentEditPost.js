@@ -180,7 +180,7 @@ const ContentEditPost = () => {
                 name="topic"
                 component="input"
                 
-                //validate={required}
+                validate={required}
               >
                 {({ input, meta }) => (
                   <div

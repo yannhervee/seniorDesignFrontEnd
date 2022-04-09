@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from '../features/userSlice';
 import { axiosInstance } from '../utils/auth';
-
+import withUser from '../components/withUser';
 
 // useEffect, useCallback, useState, useRef, useMemo
 const Departments = () => {
@@ -88,6 +88,7 @@ const Departments = () => {
         </>
     ) 
 }
+
 
 export default withUser(Departments);
 
