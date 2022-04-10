@@ -38,14 +38,14 @@ const Myquestions = () => {
             <h1 className={styles.title}> My Questions </h1>
             
        
-                {posts.map((post) => {
+                {posts.slice(0).reverse().map((post) => {
                     console.log("single post", post)
                     console.log("single post body", post.body)
                     return   <>
                     <Link href={`/forum/${post.id}`}>
                         <div className={styles.question}>
                             <div className={styles.userinfo}>
-                            <div className={styles.circle}>B</div>
+                            <div className={styles.circle}>{post.user.name.charAt(0).toUpperCase()}</div>
                             </div>
                             <div className={styles.questioninfo}>
                                 <span className={styles.questioncontent}>{post.body}</span>

@@ -9,20 +9,20 @@ import { axiosInstance } from "../utils/auth";
 const required = (value) => (value ? undefined : "Required");
 
 const ContentPostQuestion = () => {
-  const [topics, setTopics] = useState([])
-  const [text, setText] = useState('')
-  const [suggestions, setSuggestions] = useState([])
+  const [topics, setTopics] = useState([]);
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [initialValues, setInitialValues] = useState([])
+  const [initialValues, setInitialValues] = useState([]);
   const router = useRouter();
-  
+
   useEffect(() => {
     axiosInstance()
       .get("http://localhost:3001/courses")
       .then((res) => {
         console.log(res);
         setCourses(res.data);
-        setInitialValues({ course_id: res.data[0].id })
+        setInitialValues({ course_id: res.data[0].id });
       })
       .catch(() => {});
   }, []);
@@ -33,19 +33,18 @@ const ContentPostQuestion = () => {
       .then((res) => {
         console.log("topic response", res.data);
         setTopics(res.data);
-        
       })
       .catch(() => {});
   }, []);
 
   const onSubmit = (values) => {
     console.log(values, "values");
-    if(text){
-      values.topic = text
-    } else{
-      values.topic = "No Topic"
+    if (text) {
+      values.topic = text;
+    } else {
+      values.topic = "No Topic";
     }
-    
+
     console.log(values, "values");
     return axiosInstance()
       .post("http://localhost:3001/posts", values)
@@ -56,24 +55,24 @@ const ContentPostQuestion = () => {
       .catch(() => {});
   };
 
-   const onChangeHandler = (text) => {
-    console.log("text in onchange", text)
-    let matches = []
-    if(text.length > 0) {
-      matches = topics.filter(topic => {
+  const onChangeHandler = (text) => {
+    console.log("text in onchange", text);
+    let matches = [];
+    if (text.length > 0) {
+      matches = topics.filter((topic) => {
         const regex = new RegExp(`${text}`);
-        return topic.name.match(regex)
-      })
+        return topic.name.match(regex);
+      });
     }
-    console.log("matches", matches)
-    setSuggestions(matches)
-    setText(text)
-  }
+    console.log("matches", matches);
+    setSuggestions(matches);
+    setText(text);
+  };
 
   const onSuggestHandler = (text) => {
     setText(text);
-    setSuggestions([])
-  } 
+    setSuggestions([]);
+  };
 
   return (
     <>
@@ -130,15 +129,7 @@ const ContentPostQuestion = () => {
                   2- Topic you need help with *{" "}
                 </label>
               </div>
-              <Field
-                type="text"
-                name="topic"
-                component="input"
-                
-                
-                
-                
-              >
+              <Field type="text" name="topic" component="input">
                 {({ input, meta }) => (
                   <div
                     style={{
@@ -152,24 +143,25 @@ const ContentPostQuestion = () => {
                     <input
                       {...input}
                       type="text"
-                      onChange={e => onChangeHandler(e.target.value)}
+                      onChange={(e) => onChangeHandler(e.target.value)}
                       className={styles.topicinput}
                       value={text}
                       onBlur={() => {
                         setTimeout(() => {
-                          setSuggestions([])
-                        }, 100)
+                          setSuggestions([]);
+                        }, 100);
                       }}
                     />
-                    {suggestions && suggestions.map((suggestion, i) =>
-                    <div 
-                      key={i} 
-                      className={styles.suggestion}
-                      onClick={() => onSuggestHandler(suggestion.name)}
-                      >
-                        {suggestion.name}
-                    </div>
-                    )}
+                    {suggestions &&
+                      suggestions.map((suggestion, i) => (
+                        <div
+                          key={i}
+                          className={styles.suggestion}
+                          onClick={() => onSuggestHandler(suggestion.name)}
+                        >
+                          {suggestion.name}
+                        </div>
+                      ))}
                     {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}
@@ -196,11 +188,11 @@ const ContentPostQuestion = () => {
                       width: "100%",
                     }}
                   >
-                    <input
+                    <textarea
                       {...input}
-                      type="text"
+                      type="textarea"
                       className={styles.questioninput}
-                    />
+                    ></textarea>
                     {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}

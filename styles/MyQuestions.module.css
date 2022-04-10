@@ -1,26 +1,26 @@
-.container{
-    width: auto;
-    height: auto;
-   
-    
-    margin-left: 210px;
-    margin-top: -255px;
-    
-    
+.container {
+  width: auto;
+  height: auto;
+
+  background-color: #e7e9eb;
+  background-color: whitesmoke;
+  margin-left: 210px;
+  margin-top: -255px;
 }
-.question{
-    padding-top: 10px;
-    padding-left: 20px;
-    display: flex;
-    flex-direction: row;
-    height: 100px;
-    
-    border: solid 1px;
-    border-color: #732e9c;
-    
-    position: relative;
+.question {
+  padding-top: 10px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin-top: 15px;
+  border: solid 2px;
+  background-color: #ffffff;
+  border-color: #e7e9eb;
+
+  position: relative;
 }
-.circle{
+.circle {
   border-radius: 50%;
   width: 75px;
   height: 75px;
@@ -31,67 +31,66 @@
   text-align: center;
   font: 42px Arial, sans-serif;
 }
-.title{
-    color: #732e9c;
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 10px;
+.title {
+  color: #732e9c;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .questioninfo {
-    margin-left: 25px;
-    padding-left: 10px;
-    width: 850px;
-    padding-top: 15px;
-    flex-direction: column;
-    margin-top: -10px;
-    border-right: solid 1px #732e9c;
-    
+  margin-left: 25px;
+  padding-left: 10px;
+  width: 850px;
+  padding-top: 15px;
+  flex-direction: column;
+  margin-top: -10px;
+  border-right: solid 1px #732e9c;
+  display: flex;
+  gap: 10px;
+  padding-bottom: 10px;
 }
 
 .questioncontent {
-    
-    text-align: justify;
-    font-size: 20px;
-    color: #732e9c;
-    flex-wrap: wrap;
+  text-align: justify;
+  font-size: 20px;
+  color: #732e9c;
+  flex-wrap: wrap;
+  word-break: break-word;
 }
 
 .topic {
-    font-weight: bold;
-    font-size: 16px;
-    color: purple;
-    position: absolute;
-    bottom: 10px;
-
+  font-weight: bold;
+  font-size: 16px;
+  color: purple;
 }
 
-.editbutton{
-    font-weight: bold;
-    font-size: 16px;
-    color: purple;
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
+.editbutton {
+  font-weight: bold;
+  font-size: 16px;
+  color: purple;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
 }
 
 .comments {
-    margin-left: 25px;
-    color: #732e9c;
-    font-weight: bold;
-    font-size: 22px;
-    width: 250px;
-    text-align: center;
-    margin-top: 20px;
-    border-right: solid 1px #732e9c;
+  margin-left: 25px;
+  color: #732e9c;
+  font-weight: bold;
+  font-size: 22px;
+  width: 250px;
+  text-align: center;
+  margin-top: 20px;
+  border-right: solid 1px #732e9c;
 }
 
-.course{
-    margin-left: 25px;
-    color: #732e9c;
-    font-weight: bold;
-    font-size: 22px;
-    width: 250px;
-    text-align: center;
-    margin-top: 20px;
+.course {
+  margin-left: 25px;
+  color: #732e9c;
+  font-weight: bold;
+  font-size: 22px;
+  width: 250px;
+  text-align: center;
+  margin-top: 20px;
 }
