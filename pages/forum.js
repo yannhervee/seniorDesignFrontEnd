@@ -38,11 +38,7 @@ const Forum = () => {
         <LeftNav />
         <div className={styles.container}>
             <h1 className={styles.title}> Forum </h1>
-
-       
-            
-               
-        
+                    
                 {posts.slice(0).reverse().map((post) => {
                     console.log("single post", post)
                     console.log("single post body", post.body)

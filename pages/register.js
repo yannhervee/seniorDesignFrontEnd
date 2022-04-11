@@ -6,6 +6,9 @@ import logo from '../public/Translogo.png'
 import styles from '../styles/Register.module.css'
 import { register } from "../features/userSlice"
 import { axiosInstance, setAuthInfo } from '../utils/auth';
+import withUser from '../components/withUser';
+import Link from 'next/link';
+
 
 const Register = () => {
     const router = useRouter()
@@ -131,6 +134,7 @@ const Register = () => {
                     <button type="submit" className={styles.button}>Register</button>
                 </div>
             </form>
+            <p className={styles.signuplink}>Already have an account? <a className={styles.linkitem}><Link href="/login">Sign in</Link></a></p>
             </div>
         </div>
         <div className={`${styles.split} ${styles.left}`}>
@@ -147,4 +151,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default withUser(Register);

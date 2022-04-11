@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { register, selectUser } from "../features/userSlice";
 import { axiosInstance } from "../utils/auth";
 
+
 const isServer = typeof window === 'undefined';
 
 const withUser = (WrappedComponent) => {
@@ -25,7 +26,14 @@ const withUser = (WrappedComponent) => {
             axiosInstance().get('http://localhost:3001/users/fetch_current_user')
             .then((res) => {
                 console.log(res)
-                res.data ? dispatch(register(res.data)) : Router.push('/login')
+                if(res.data){
+                    dispatch(register(res.data))
+                }else{
+                    if(Router.pathname!= "/register"){
+                        Router.push('/login')
+                    }
+                }
+                //res.data ? dispatch(register(res.data)) : Router.push('/login')
                 setLoading(false)             
             })
             .catch(() => {

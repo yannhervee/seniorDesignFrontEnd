@@ -7,6 +7,7 @@ import withUser from '../components/withUser';
 import { axiosInstance, setAuthInfo } from '../utils/auth';
 import { register } from '../features/userSlice';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -55,6 +56,7 @@ const Login = () => {
                     <button type="submit" className={styles.button}>Login</button>
                 </div>
             </form>
+            <p className={styles.signuplink}>Don't have an account? <a className={styles.linkitem}><Link href="/register">Sign up</Link></a></p>
             </div>
         </div>
         <div className={`${styles.split} ${styles.left}`}>
