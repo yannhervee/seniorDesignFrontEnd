@@ -9,6 +9,21 @@ import { axiosInstance } from '../utils/auth';
 
 
 const Nav = ({count}) => {
+  const [currentUser, setCurrentUser] = useState([])
+
+  useEffect(() => {
+    axiosInstance().get('http://localhost:3001/users/fetch_current_user')
+    .then((res) => {
+        console.log("fecth user name", res.data)
+               setCurrentUser(res.data);
+               
+
+    })
+    .catch(() => {
+        //
+    })
+
+}, [])
   
   return (
     <div className={navStyles.nav}>
@@ -31,7 +46,7 @@ const Nav = ({count}) => {
                 <Link href='/notificationview'><FontAwesomeIcon icon={faBell} style={{width:"18px", cursor:"pointer"}}/></Link>{count}
                 </li>
                 <li>
-                <Link href='/about'> Beautiful</Link>
+                <a>{currentUser.name}</a>
                 </li>
                 <li>
                 <Link href='/dashboard'><FontAwesomeIcon icon={faBars} style={{width:"18px", cursor:"pointer"}}/></Link>

@@ -190,7 +190,7 @@ console.log(post)
                     </div>
                     <div className={styles.postsignature}>            
                         <div className={styles.useravatar}>
-                            <div className={styles.circle}>B</div>
+                            <div className={styles.circle}> {post? post.user.name.charAt(0) : <Skeleton width="10" height='14' />} </div>
                         </div>
                         <div className={styles.userinfo}>
                             <span> {post ? post.user.name : <Skeleton width="30" height='14' />} </span>

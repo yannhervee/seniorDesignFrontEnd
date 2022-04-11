@@ -19,6 +19,11 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [role, setRole] = useState()
+    const [errorpassword, setErrorPassword] = useState('');
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState('')
+    const [validPassword, setValidPassword] = useState(false)
+    const [validCPassword, setValidCPassword] = useState(false)
+
 
     // redux, reduxjs-toolkit
 
@@ -28,6 +33,8 @@ const Register = () => {
 
     const registerUser = async e => {
         e.preventDefault()
+
+        if(validCPassword && validPassword){
 
          axiosInstance().post('http://localhost:3001/auth', {            
                 name: name,
@@ -51,6 +58,7 @@ const Register = () => {
             // TODO: validations
             console.log('error', e);
         })  
+    }
 
 /*          const data = {
             name,
@@ -61,6 +69,31 @@ const Register = () => {
           console.log(data); */
  
     } 
+
+    const onChangePassword = (pwd) => {
+        console.log("text in password onchange", pwd);
+        if(pwd.length < 6){
+            setErrorPassword("password should be at least 6 characters")
+            setValidPassword(false)
+        } else{
+            setPassword(pwd)
+            setErrorPassword("")
+            setValidPassword(true)
+        }
+      };
+
+      const onChangeConfirmPassword = (cpwd) => {
+        console.log("text in password onchange", cpwd);
+        if(cpwd.localeCompare(password) !== 0){
+            setErrorConfirmPassword("passwords should match")
+            setValidCPassword(false)
+        } else{
+            setConfirmPassword(cpwd)
+            setErrorConfirmPassword("")
+            setValidCPassword(true)
+            
+        }
+      };
 
     return(
         <>
@@ -96,22 +129,26 @@ const Register = () => {
                         type="password" 
                         id="password" 
                         placeholder="password" 
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={(e) => onChangePassword(e.target.value)}
+                       // onChange={e => setPassword(e.target.value)}
                         className={styles.input} 
                         required 
                     />
                 </div>
+                <p>{errorpassword}</p>
                 <div>
                     <label for="confirmpassword" className={styles.label} >Confirm Password *</label>
                     <input 
                         type="password"
                         id="confirmPassword"
                         placeholder="retype password" 
-                        onChange={e => setConfirmPassword(e.target.value)}
+                        onChange={(e) => onChangeConfirmPassword(e.target.value)}
+                        //onChange={e => setConfirmPassword(e.target.value)}
                         className={styles.input}
                         required 
                     />
                 </div>
+                <p>{errorConfirmPassword}</p>
                 <div>
                     <label for="role" className={styles.label}>I am a </label>
                     <select id="role" 
