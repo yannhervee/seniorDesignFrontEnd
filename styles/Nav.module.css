@@ -19,6 +19,11 @@
     list-style: none;
   }
 
+  .notifcount{
+    margin-left: -10px;
+    color: red
+  }
+
   .postquestionbutton {
     color: rgb(255, 255, 255);
     min-width: 70px;

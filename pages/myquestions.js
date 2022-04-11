@@ -26,11 +26,8 @@ const Myquestions = () => {
             console.log('error', e);
         })
     }, [])
-
-
     
-    return(
-            
+    return(         
         <>
      
         <LeftNav />

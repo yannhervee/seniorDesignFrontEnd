@@ -3,7 +3,7 @@ import navStyles from '../styles/Nav.module.css'
 import logo from '../public/wtransparent.png' 
 import Image from 'next/image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import{ faBars, faBell} from "@fortawesome/free-solid-svg-icons";
+import{ faBars, faBell, faRocket} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react"
 import { axiosInstance } from '../utils/auth';
 
@@ -49,7 +49,7 @@ const Nav = ({count}) => {
                 <a>{currentUser.name}</a>
                 </li>
                 <li>
-                <Link href='/dashboard'><FontAwesomeIcon icon={faBars} style={{width:"18px", cursor:"pointer"}}/></Link>
+                <Link href='/dashboard'><FontAwesomeIcon icon={faRocket} style={{width:"18px", cursor:"pointer"}}/></Link>
                 </li>
             </ul>
         </div>

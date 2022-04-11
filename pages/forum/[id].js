@@ -212,7 +212,7 @@ console.log(post)
                                         <div className={styles.circle}> {comment.user.name.charAt(0).toUpperCase()} </div>
                                     </div>
                                     <div className={styles.commenterinfo}>
-                                        <span className={styles.commenter}> {comment.user.name }</span>
+                                     <Link href= {`/userprofile/${comment.user.id}`}><span className={styles.commenter}> {comment.user.name }</span></Link>
                                         <span className={styles.commenter}> reliability: {comment.user.reliability } </span>
                                         <span className={styles.like}> 
                                             Was this answer helpful?  &nbsp;
