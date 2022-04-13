@@ -24,7 +24,7 @@ const ContentEditPost = () => {
   const [courses, setCourses] = useState([]);
   const [initialValues, setInitialValues] = useState([])
   const [body, setBody] = useState()
-  const [topic, setTopic] = useState()
+  const [topic, setTopic] = useState('')
   const [course, setCourse] = useState()
   const [courseId, setCourseId] = useState()
   const [topicId, setTopicId] = useState()
@@ -80,6 +80,11 @@ const ContentEditPost = () => {
 
 
   const onSubmit = () => {
+    if(text){
+      setTopic(text)
+    } else {
+      setTopic("No Topic")
+    }
       const updateFields = {
         topic,
         body,
@@ -95,8 +100,8 @@ const ContentEditPost = () => {
       .catch(() => {});
   };
 
-  const onChangeHandler = (text) => {
-      setTopic(text)
+   const onChangeHandler = (text) => {
+     // setTopic(text)
     console.log("text in onchange", text)
     let matches = []
     if(text.length > 0) {
@@ -107,13 +112,13 @@ const ContentEditPost = () => {
     }
     console.log("matches", matches)
     setSuggestions(matches)
-    setText(text)
+    setTopic(text)
   }
 
   const onSuggestHandler = (text) => {
     setText(text);
     setSuggestions([])
-  }
+  } 
 
   return (
     <>
@@ -179,8 +184,6 @@ const ContentEditPost = () => {
                 type="text"
                 name="topic"
                 component="input"
-                
-                validate={required}
               >
                 {({ input, meta }) => (
                   <div
@@ -198,10 +201,9 @@ const ContentEditPost = () => {
                       onChange={e => onChangeHandler(e.target.value)}
                       className={styles.topicinput}
                       value={topic}
-                      
                       onBlur={() => {
-                        setTimeout(() => {
-                          setSuggestions([])
+                      setTimeout(() => {
+                      setSuggestions([])
                         }, 100)
                       }}
                     />

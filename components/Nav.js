@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { axiosInstance } from '../utils/auth';
 
 
+
 const Nav = ({count}) => {
   const [currentUser, setCurrentUser] = useState([])
 
@@ -46,7 +47,7 @@ const Nav = ({count}) => {
                 <Link href='/notificationview'><FontAwesomeIcon icon={faBell} style={{width:"18px", cursor:"pointer"}}/></Link>{count}
                 </li>
                 <li>
-                <a>{currentUser.name}</a>
+                <a>Beautiful</a>
                 </li>
                 <li>
                 <Link href='/dashboard'><FontAwesomeIcon icon={faRocket} style={{width:"18px", cursor:"pointer"}}/></Link>
