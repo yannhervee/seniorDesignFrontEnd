@@ -11,8 +11,8 @@ import {
   faNewspaper,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Router } from "next/router";
-import { axiosInstance, removeDocumentAuthCookies } from "../utils/auth";
+import Router  from "next/router";
+import {  axiosInstance, removeDocumentAuthCookies } from "../utils/auth";
 import { useDispatch } from "react-redux";
 import { register } from "../features/userSlice";
 
