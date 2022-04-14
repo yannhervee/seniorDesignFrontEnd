@@ -47,7 +47,7 @@ const ContentPostQuestion = () => {
 
     console.log(values, "values");
     return axiosInstance()
-      .post("http://localhost:3001/posts", values)
+      .post("/posts", values)
       .then((res) => {
         console.log(res);
         router.push("/myquestions");
