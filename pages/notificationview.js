@@ -1,8 +1,10 @@
 import LeftNav from '../components/LeftNav';
-import styles from '../styles/MyQuestions.module.css'
+import styles from '../styles/Notification.module.css'
 import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { axiosInstance } from '../utils/auth';
+import{ faNewspaper} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NotificationView = () => {
     const [count, setCount]= useState(0)
@@ -69,20 +71,34 @@ const NotificationView = () => {
       })
   }
 
-
-    
     return(
             
-        <>
-          
+        <>    
         <LeftNav />
-        <div className={styles.container}>
-           
-            {notifications.length > 0 && notifications.map((notification, index) => {
-               return <h1 key={index}>{notification.body}</h1>
-            })}
+        <div className={styles.maincontainer}>
+          <h1>Notif</h1>
+          <div className={styles.question}>
+            <div className={styles.notifbody}>
+              <a className={styles.icon}><FontAwesomeIcon icon={faNewspaper} style={{width:"80px", height:"70px"}}/></a>
+              <div className={styles.text}>body of notification : you have a new nootifcation </div>
             </div>
+            <div className={styles.others}>
+              <div className={styles.notiftime}>
+                3h
+              </div>
+              <button className={styles.dismiss}>Dismiss</button>
+            </div>
+
+
+           </div>
            
+          
+           {/*  
+            {notifications.length > 0 && notifications.map((notification, index) => {
+              return <h1 key={index}>{notification.body}</h1>
+            })} */}
+          
+        </div>  
         </>
     )
 }
