@@ -1,8 +1,8 @@
 
-import LeftNav from '../components/LeftNav';
+import LeftNav from '../../components/LeftNav';
 
 
-import ContentEditPost from '../components/ContentPostQuestion';
+import ContentEditPost from '../../components/ContentPostQuestion';
 
 const EditPost = () => {
 
