@@ -64,7 +64,7 @@ const handleAddButton = () => {
       return (
         <>
           <div className={styles.cardwrapper}>
-           <Link href={`course/${userCourse.course.id}`}><div class={styles.card}>
+           <Link href={`course/${userCourse.course.id}`}><div className={styles.card}>
               <a className={styles.name}>{userCourse.course.name}</a>
               <button
                 className={styles.button}

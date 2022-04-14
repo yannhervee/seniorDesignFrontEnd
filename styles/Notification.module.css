@@ -1,0 +1,55 @@
+.maincontainer {
+    width: auto;
+    height: auto;
+  
+
+    margin-left: 210px;
+    margin-top: -255px;
+  }
+  .notif {
+      background-color: aqua;
+      width: auto;
+      height: 100px;
+  }
+  .icon {
+      background-color: red;
+      height: 100px;
+    
+  }
+  .text{
+    margin-left: 110px;
+    width: auto;
+    margin-top: -45px;
+  }
+  .notiftime{
+    font-size: 16px;
+    margin-top: 10px;
+    width: 20px;
+  }
+  .question {
+    
+    padding-top: 10px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    width: auto;
+    margin-top: 15px;
+    border: solid 2px;
+    background-color: #ffffff;
+    border-color: red;
+   
+  
+    position: relative;
+  }
+  .dismiss{
+      border: none;
+      color: red;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #ffffff;
+      margin-top: 20px;
+  }
+  .others{
+      margin-left: 35px;
+  }
