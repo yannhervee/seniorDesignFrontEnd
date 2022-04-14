@@ -28,7 +28,7 @@ const ContentDashboard = () => {
     //  console.log(user, 'department')
     // Promises
     axiosInstance()
-      .get("http://localhost:3001/user_courses/")
+      .get("/user_courses/")
       .then((res) => {
         console.log("responaw", res.data);
         setUserCourses(res.data);
@@ -42,7 +42,7 @@ const ContentDashboard = () => {
 
   const handleRemoveButton = (user_course, e) => {
     e.preventDefault();
-    const deleteUrl = `http://localhost:3001/user_courses/${user_course}`;
+    const deleteUrl = `/user_courses/${user_course}`;
 
     console.log("delete id");
     if (user_course) {

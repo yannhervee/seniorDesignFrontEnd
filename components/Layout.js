@@ -10,7 +10,7 @@ const Layout = ({children}) => {
   const [currentUser, setCurrentUser] = useState([])
 
   useEffect(() => {
-    axiosInstance().get('http://localhost:3001/users/fetch_current_user')
+    axiosInstance().get('/users/fetch_current_user')
     .then((res) => {
         console.log("fecth user nav", res.data)
         getUnreadNotifications(res.data.id)
@@ -26,7 +26,7 @@ const Layout = ({children}) => {
 
 
 const getUnreadNotifications = (user_id) => {
-   axiosInstance().get(`http://localhost:3001/unread_notifications/?user_id=${user_id}`)
+   axiosInstance().get(`/unread_notifications/?user_id=${user_id}`)
     .then((res) => {
         console.log("check notification", res.data)
         setCount(res.data.length)

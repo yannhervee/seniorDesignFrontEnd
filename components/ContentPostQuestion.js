@@ -18,7 +18,7 @@ const ContentPostQuestion = () => {
 
   useEffect(() => {
     axiosInstance()
-      .get("http://localhost:3001/courses")
+      .get("/courses")
       .then((res) => {
         console.log(res);
         setCourses(res.data);
@@ -29,7 +29,7 @@ const ContentPostQuestion = () => {
 
   useEffect(() => {
     axiosInstance()
-      .get("http://localhost:3001/topics")
+      .get("/topics")
       .then((res) => {
         console.log("topic response", res.data);
         setTopics(res.data);

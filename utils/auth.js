@@ -52,6 +52,7 @@ const setAuthInfo = (headers) => setDocumentAuthCookies(headers);
 
 const axiosInstance = () => {  
     const axiosClientConfig = {
+        baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://studentconnection.herokuapp.com',
         withCredentials: true, // This tells the browser to send cookies to the backend
         headers: { "X-Requested-With": "XMLHttpRequest" }
     };

@@ -23,7 +23,7 @@ const withUser = (WrappedComponent) => {
         useEffect(() => {
             if (!loading) return 
 
-            axiosInstance().get('http://localhost:3001/users/fetch_current_user')
+            axiosInstance().get('/users/fetch_current_user')
             .then((res) => {
                 console.log(res)
                 if(res.data){

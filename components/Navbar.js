@@ -13,7 +13,7 @@ const Navbar = ({count}) => {
   const [currentUser, setCurrentUser] = useState([])
 
   useEffect(() => {
-    axiosInstance().get('http://localhost:3001/users/fetch_current_user')
+    axiosInstance().get('/users/fetch_current_user')
     .then((res) => {
         console.log("fecth user name", res.data)
                setCurrentUser(res.data);

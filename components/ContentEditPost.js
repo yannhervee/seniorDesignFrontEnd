@@ -39,7 +39,7 @@ const ContentEditPost = () => {
     console.log('running effect')
 
     // Promises
-    axiosInstance().get(`http://localhost:3001/posts/${id}/edit`)
+    axiosInstance().get(`/posts/${id}/edit`)
     .then((res) => {
         console.log("edit post data", res)
         
@@ -58,7 +58,7 @@ const ContentEditPost = () => {
 
   useEffect(() => {
     axiosInstance()
-      .get("http://localhost:3001/courses")
+      .get("/courses")
       .then((res) => {
         console.log(res);
         setCourses(res.data);
@@ -69,7 +69,7 @@ const ContentEditPost = () => {
 
   useEffect(() => {
     axiosInstance()
-      .get("http://localhost:3001/topics")
+      .get("/topics")
       .then((res) => {
         console.log("topic response", res.data);
         setTopics(res.data);
@@ -92,7 +92,7 @@ const ContentEditPost = () => {
       }
     console.log(updateFields, "values");
     return axiosInstance()
-      .put(`http://localhost:3001/posts/${id}`, updateFields)
+      .put(`/posts/${id}`, updateFields)
       .then((res) => {
         console.log(res);
         router.push("/myquestions");
