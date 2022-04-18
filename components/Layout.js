@@ -4,7 +4,7 @@ import { axiosInstance } from "../utils/auth";
 import { useEffect, useState } from "react";
 
 const Layout = ({ children }) => {
-  const [count, setCount] = useState(6);
+  const [count, setCount] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
 
