@@ -9,66 +9,72 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const NotificationView = () => {
   const [count, setCount] = useState(0);
   const [notifications, setNotifications] = useState([]);
+  const [readNotifications, setReadNotifications] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
 
   useEffect(() => {
-    if (notifications.length > 0) {
-      const mapped_ids = notifications.map((notification) => {
-        return {
-          id: notification.id,
-        };
-      });
-      console.log("mapped", mapped_ids);
-
-      const timer = setTimeout(() => {
-        axiosInstance()
-          .post("/update_read_notfifications", {
-            notifications: { notification_ids: mapped_ids },
-          })
-          .then((res) => {
-            console.log("fecth read notif", res.data);
-          })
-          .catch(() => {
-            //
-          });
-        console.log("This will run after 20 second!");
-      }, 20000);
-    }
-    return () => clearTimeout(timer);
-  }, [notifications]);
-
-  useEffect(() => {
+    console.log("running effect");
+    //  console.log(user, 'department')
+    // Promises
     axiosInstance()
-      .get("/users/fetch_current_user")
+      .get("/notifications")
       .then((res) => {
-        console.log("fecth user nav", res.data);
-        getUnreadNotifications(res.data.id);
-        setCurrentUser(res.data);
+        console.log(res);
+        setNotifications(res.data);
+        console.log("res data posts", res.data[0]);
       })
-      .catch(() => {
-        //
+      .catch((e) => {
+        console.log("error", e);
       });
   }, []);
 
-  const getUnreadNotifications = (user_id) => {
-    axiosInstance()
-      .get(`/unread_notifications/?user_id=${user_id}`)
-      .then((res) => {
-        console.log("check notification in notification", res.data);
-        setCount(res.data.length);
-        setNotifications(res.data);
-      })
-      .catch(() => {
-        //
+  const handleDismissButton = (notifId, e) => {
+    e.preventDefault();
+    const editUrl = `/notifications/${notifId}`;
+    
+    if (notifId) {
+      axiosInstance().put(editUrl).then((res) => {
+       console.log("update notif", res)
+       setNotifications(
+        notifications.filter((notif) => notif.id !== notifId)
+      );
       });
+    }
   };
+
 
   return (
     <>
       <LeftNav />
       <div className={styles.maincontainer}>
-        <h1>Notif</h1>
-        <div className={styles.question}>
+        <h1>Notifications</h1>
+
+        {notifications.slice(0).reverse().map((notification) => {
+
+          return (
+            <>
+            <div className={styles.question}>
+          <div className={styles.notifbody}>
+            <a className={styles.icon}>
+              <FontAwesomeIcon
+                icon={faNewspaper}
+                style={{ width: "80px", height: "70px" }}
+              />
+            </a>
+            <div className={styles.text}>
+              {notification.body}{" "}
+            </div>
+          </div>
+          <div className={styles.others}>
+            <div className={styles.notiftime}>3h</div>
+            <button className={styles.dismiss} onClick={(e) => handleDismissButton(notification.id, e)}>Dismiss</button>
+          </div>
+        </div>
+            </>
+          )
+        })}
+
+{/*         <div className={styles.question}>
           <div className={styles.notifbody}>
             <a className={styles.icon}>
               <FontAwesomeIcon
@@ -85,7 +91,7 @@ const NotificationView = () => {
             <button className={styles.dismiss}>Dismiss</button>
           </div>
         </div>
-
+ */}
         {/*  
             {notifications.length > 0 && notifications.map((notification, index) => {
               return <h1 key={index}>{notification.body}</h1>
