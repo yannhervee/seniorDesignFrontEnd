@@ -11,20 +11,23 @@ import {
   faNewspaper,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import  Router  from "next/router";
+import { useRouter}  from "next/router";
 import {  axiosInstance, removeDocumentAuthCookies } from "../utils/auth";
 import { useDispatch } from "react-redux";
 import { register } from "../features/userSlice";
 
 const LeftNav = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { pathname } =  router;
 
   const onLogout = () => {
     axiosInstance()
       .delete("/auth/sign_out")
       .then((res) => {
         removeDocumentAuthCookies();
-        Router.push("/login").then(() => {
+        router.push("/login").then(() => {
           dispatch(register(null));
         });
       })
@@ -42,7 +45,7 @@ const LeftNav = () => {
             />
             <Link href="/dashboard">
               <a
-                className={Router.pathname == "/dashboard" ? styles.active : ""}
+                className={pathname == "/dashboard" ? styles.active : ""}
               >
                 {" "}
                 Dashboard
@@ -57,7 +60,7 @@ const LeftNav = () => {
             <Link href="/myquestions">
               <a
                 className={
-                  Router.pathname == "/myquestions" ? styles.active : ""
+                  pathname == "/myquestions" ? styles.active : ""
                 }
               >
                 {" "}
@@ -71,7 +74,7 @@ const LeftNav = () => {
               style={{ width: "18px", cursor: "pointer" }}
             />
             <Link href="/forum">
-              <a className={Router.pathname == "/forum" ? styles.active : ""}>
+              <a className={pathname == "/forum" ? styles.active : ""}>
                 {" "}
                 Forum
               </a>
@@ -84,7 +87,7 @@ const LeftNav = () => {
             />
             <Link href="/profile">
               <a
-                className={Router.pathname == "/settings" ? styles.active : ""}
+                className={pathname == "/settings" ? styles.active : ""}
               >
                 {" "}
                 My Profile
@@ -98,7 +101,7 @@ const LeftNav = () => {
             />
             <button
               onClick={onLogout}
-              className={Router.pathname == "/logout" ? styles.active : ""}
+              className={pathname == "/logout" ? styles.active : ""}
             >
               {" "}
               logout
