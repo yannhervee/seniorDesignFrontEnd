@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import{ faBars, faBell, faRocket} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react"
 import { axiosInstance } from '../utils/auth';
-
-
+import Skeleton from "react-loading-skeleton";
 
 const Nav = ({count}) => {
   const [currentUser, setCurrentUser] = useState([])
@@ -18,7 +17,6 @@ const Nav = ({count}) => {
         console.log("fecth user name", res.data)
                setCurrentUser(res.data);
                
-
     })
     .catch(() => {
         //
@@ -47,7 +45,7 @@ const Nav = ({count}) => {
                 <Link href='/notificationview'><FontAwesomeIcon icon={faBell} style={{width:"18px", cursor:"pointer"}}/></Link>{count}
                 </li>
                 <li>
-                <a>Beautiful</a>
+                <a> {currentUser ? currentUser.name : <Skeleton width="30px" height="14px" />}</a>
                 </li>
                 <li>
                 <Link href='/dashboard'><FontAwesomeIcon icon={faRocket} style={{width:"18px", cursor:"pointer"}}/></Link>

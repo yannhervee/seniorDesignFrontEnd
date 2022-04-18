@@ -42,7 +42,7 @@ const Profile = () => {
               color: "#732e9c",
             }}
           />
-          <h4 className={styles.inforole}>Student</h4>
+          <h4 className={styles.inforole}>{currentUser.role}</h4>
           <h4 className={styles.info}>name: {currentUser.name} </h4>
           <h4 className={styles.info}>email: {currentUser.email} </h4>
           <h4 className={styles.info}>
