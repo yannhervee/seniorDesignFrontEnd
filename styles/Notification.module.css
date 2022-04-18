@@ -38,6 +38,7 @@
     border: solid 2px;
     background-color: #ffffff;
     border-color: red;
+    cursor: pointer;
    
   
     position: relative;

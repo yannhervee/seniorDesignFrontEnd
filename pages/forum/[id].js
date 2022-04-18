@@ -232,9 +232,10 @@ const ForumItem = ({}) => {
                         {comment.user.name.charAt(0).toUpperCase()}{" "}
                       </div>
                     </div>
+              
                     <div className={styles.commenterinfo}>
                       <Link href={`/userprofile/${comment.user.id}`}>
-                        <span className={styles.commenter}>
+                        <span  className={styles.namecommenter}>
                           {" "}
                           {comment.user.name}
                         </span>

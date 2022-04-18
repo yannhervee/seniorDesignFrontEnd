@@ -100,6 +100,8 @@
   border: 3px solid rgb(255, 107, 84);
   color: #fff;
   text-align: center;
+  margin-left: 15px;
+  margin-bottom: 3px;
   font: 35px Arial, sans-serif;
 }
 
@@ -206,4 +208,10 @@
   margin-top: 50px;
 
   height: auto;
+}
+.namecommenter{
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 22px;
+  color: rgb(255, 107, 84);;
 }

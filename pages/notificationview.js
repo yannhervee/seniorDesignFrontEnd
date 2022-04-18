@@ -7,10 +7,10 @@ import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NotificationView = () => {
-  const [count, setCount] = useState(0);
+
   const [notifications, setNotifications] = useState([]);
   const [readNotifications, setReadNotifications] = useState([]);
-  const [currentUser, setCurrentUser] = useState([]);
+
 
   useEffect(() => {
     console.log("running effect");
@@ -53,23 +53,25 @@ const NotificationView = () => {
 
           return (
             <>
+            <Link href={`../forum/${notification.post_id}`}>
             <div className={styles.question}>
-          <div className={styles.notifbody}>
-            <a className={styles.icon}>
-              <FontAwesomeIcon
-                icon={faNewspaper}
-                style={{ width: "80px", height: "70px" }}
-              />
-            </a>
-            <div className={styles.text}>
-              {notification.body}{" "}
+              <div className={styles.notifbody}>
+                 <a className={styles.icon}>
+                  <FontAwesomeIcon
+                    icon={faNewspaper}
+                    style={{ width: "80px", height: "70px" }}
+                  />
+                </a>
+                <div className={styles.text}>
+                  {notification.body}{" "}
+                </div>
+              </div>
+              <div className={styles.others}>
+                <div className={styles.notiftime}>3h</div>
+                <button className={styles.dismiss} onClick={(e) => handleDismissButton(notification.id, e)}>Dismiss</button>
+              </div>
             </div>
-          </div>
-          <div className={styles.others}>
-            <div className={styles.notiftime}>3h</div>
-            <button className={styles.dismiss} onClick={(e) => handleDismissButton(notification.id, e)}>Dismiss</button>
-          </div>
-        </div>
+        </Link>
             </>
           )
         })}
