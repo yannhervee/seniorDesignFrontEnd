@@ -48,7 +48,7 @@ const Register = () => {
           console.log("registerpage", res.data.data.email);
           console.log("registerpage", res.data.data.name);
           setAuthInfo(res.headers);
-          dispatch(register(res.data.data));
+          //dispatch(register(res.data.data));
           router.push("/departments");
         })
         .catch((e) => {

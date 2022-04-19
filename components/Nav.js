@@ -7,22 +7,10 @@ import{ faBars, faBell, faRocket} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react"
 import { axiosInstance } from '../utils/auth';
 import Skeleton from "react-loading-skeleton";
+import { useSelector } from 'react-redux';
 
 const Nav = ({count}) => {
-  const [currentUser, setCurrentUser] = useState([])
-
-  useEffect(() => {
-    axiosInstance().get('/users/fetch_current_user')
-    .then((res) => {
-        console.log("fecth user name", res.data)
-               setCurrentUser(res.data);
-               
-    })
-    .catch(() => {
-        //
-    })
-
-}, [])
+  const { user: currentUser } = useSelector((state) => state.user)
   
   return (
     <div className={navStyles.nav}>

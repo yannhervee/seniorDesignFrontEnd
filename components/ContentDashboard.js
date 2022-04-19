@@ -33,7 +33,7 @@ const ContentDashboard = () => {
         console.log("responaw", res.data);
         setUserCourses(res.data);
         console.log("res data courses", userCourses);
-        console.log("res data name", userCourses[0].course.name);
+        
       })
       .catch((e) => {
         console.log("error", e);

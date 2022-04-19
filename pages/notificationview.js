@@ -5,6 +5,7 @@ import Link from "next/link";
 import { axiosInstance } from "../utils/auth";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import withUser from "../components/withUser";
 
 const NotificationView = () => {
 
@@ -103,4 +104,4 @@ const NotificationView = () => {
   );
 };
 
-export default NotificationView;
+export default withUser(NotificationView);

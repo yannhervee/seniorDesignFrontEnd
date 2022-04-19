@@ -12,6 +12,7 @@ import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "react-loading-skeleton";
 import { axiosInstance } from "../../utils/auth";
 import withUser from "../../components/withUser";
+import { useSelector } from "react-redux";
 
 const updateImmutable = (list, payload) => {
   const data = list.find((d) => d.id === payload.id);
@@ -38,19 +39,8 @@ const ForumItem = ({}) => {
   const [editComment, setEditComment] = useState(false);
   const [commentBody, setCommentBody] = useState("");
   const [commentUpdate, setCommentUpdate] = useState({});
-  const [currentUser, setCurrentUser] = useState([]);
-
-  useEffect(() => {
-    axiosInstance()
-      .get("/users/fetch_current_user")
-      .then((res) => {
-        console.log("check hereh", res.data);
-        setCurrentUser(res.data);
-      })
-      .catch(() => {
-        //
-      });
-  }, []);
+  
+  const { user: currentUser } = useSelector((state) => state.user)
 
   useEffect(() => {
     if (!router.isReady) return;

@@ -45,7 +45,7 @@ const withUser = (WrappedComponent) => {
 
         if (isServer) {
             return null
-        } else if ((['/login', '/register'].includes(Router.pathname) && user) && (Router.pathname!= "/register")) {
+        } else if ((['/login', '/register'].includes(Router.pathname) && user)) {
             console.log("am i here?")
             Router.push('/dashboard')
             return null
