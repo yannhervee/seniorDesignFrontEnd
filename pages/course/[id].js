@@ -39,9 +39,8 @@ const CourseForum = () => {
       <div className={styles.container}>
         <h1 className={styles.title}> Forum </h1>
 
-        {posts.map((post) => {
-          console.log("single post", post);
-          console.log("single post body", post.body);
+        {posts.slice(0).reverse().map((post) => {
+         
           return (
             <>
               <Link href={`../forum/${post.id}`}>
@@ -50,7 +49,7 @@ const CourseForum = () => {
                     <div className={styles.circle}>B</div>
                   </div>
                   <div className={styles.questioninfo}>
-                    <span className={styles.questioncontent}>{post.body}</span>
+                    <span className={styles.questioncontent}>{post.body.slice(0,200)}</span>
                     <span className={styles.topic}> {post.topic.name}</span>
                   </div>
                   <div className={styles.comments}>
