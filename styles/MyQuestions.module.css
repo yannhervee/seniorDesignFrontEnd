@@ -57,6 +57,7 @@
   color: #732e9c;
   flex-wrap: wrap;
   word-break: break-word;
+  padding-right: 8px;
 }
 
 .topic {

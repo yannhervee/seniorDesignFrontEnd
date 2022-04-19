@@ -51,7 +51,7 @@ const Forum = () => {
                     </div>
                     <div className={styles.questioninfo}>
                       <span className={styles.questioncontent}>
-                        {post.body}
+                        {post.body.slice(0,200)}
                       </span>
                       <span className={styles.topic}> {post.topic.name}</span>
                     </div>
