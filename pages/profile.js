@@ -9,19 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { axiosInstance } from "../utils/auth";
 
 const Profile = () => {
-  const [currentUser, setCurrentUser] = useState([]);
-
-  useEffect(() => {
-    axiosInstance()
-      .get("/users/fetch_current_user")
-      .then((res) => {
-        console.log("fecth user profile", res.data);
-        setCurrentUser(res.data);
-      })
-      .catch(() => {
-        //
-      });
-  }, []);
+    
+ const { user: currentUser } = useSelector((state) => state.user)
 
   return (
     <>
