@@ -101,10 +101,10 @@ const LeftNav = () => {
             />
             <button
               onClick={onLogout}
-              className={pathname == "/logout" ? styles.active : ""}
+              className={styles.logout}
             >
               {" "}
-              logout
+              Logout
             </button>
           </li>
         </ul>

@@ -15,6 +15,8 @@ import withUser from "../../components/withUser";
 import { useSelector } from "react-redux";
 
 
+
+
 const updateImmutable = (list, payload) => {
   const data = list.find((d) => d.id === payload.id);
   if (data) {
@@ -42,6 +44,7 @@ const ForumItem = ({}) => {
   const [editComment, setEditComment] = useState(false);
   const [commentBody, setCommentBody] = useState("");
   const [commentUpdate, setCommentUpdate] = useState({});
+  
   
   const { user: currentUser } = useSelector((state) => state.user)
 
@@ -147,7 +150,8 @@ const ForumItem = ({}) => {
     if (id) {
       axiosInstance().delete(deleteUrl).then((res) => {
         console.log("res in report post", res)
-        router.push("/forum")
+        router.back()
+        //router.push("/forum")
       });
     }
 
@@ -189,7 +193,8 @@ const ForumItem = ({}) => {
 
         <div className={styles.back}>
           {" "}
-          <Link href="/myquestions"> &larr; back </Link>
+          {/* <Link href="/myquestions"> &larr; back </Link> */}
+          <button className={styles.backbutton} onClick={() => router.back()}> &larr; back </button>
         </div>
         <div className={styles.maincontent}>
           <div className={styles.postdetails}>
