@@ -134,6 +134,23 @@ const ForumItem = ({}) => {
     setCommentUpdate(comment);
     setEditComment(!editComment);
   };
+
+  const handleReportButton = (e, postId) => {
+    e.preventDefault();
+
+    const deleteUrl = `/posts/${postId}`;
+
+    console.log("delete id");
+    if (postId) {
+      axiosInstance().delete(deleteUrl).then((res) => {
+        console.log("res in report post", res)
+        router.push("/forum")
+      });
+    }
+
+   
+  };
+
   const getEditButtonClassName = (commenter) => {
     console.log("commeterid", commenter);
     console.log("currentuser", currentUser);
@@ -147,6 +164,15 @@ const ForumItem = ({}) => {
     console.log("currentuser", currentUser.id);
     return currentUser.id === commenter
       ? styles.buttonedit
+      : styles.disablebutton;
+    //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
+  };
+
+  const getReportButtonClassName = (user) => {
+    console.log("in report", user);
+   
+    return user.role.localeCompare("professor") === 0
+      ? styles.report
       : styles.disablebutton;
     //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
   };
@@ -207,6 +233,11 @@ const ForumItem = ({}) => {
                 )}
               </span>
             </div>
+            <button 
+              className={getReportButtonClassName(currentUser)}
+                onClick={(e) => handleReportButton(e, post.id)}>
+              Report
+            </button>
           </div>
         </div>
         <h3 className={styles.header}> Comments </h3>
