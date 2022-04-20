@@ -48,7 +48,7 @@ const NotificationView = () => {
     <>
       <LeftNav />
       <div className={styles.maincontainer}>
-        <h1>Notifications</h1>
+        <h1 className={styles.header}>Notifications</h1>
 
         {notifications.slice(0).reverse().map((notification) => {
 

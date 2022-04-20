@@ -8,11 +8,12 @@ import LeftNav from "../../components/LeftNav";
 import Link from "next/link";
 import { Form, Field } from "react-final-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faExclamationTriangle, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "react-loading-skeleton";
 import { axiosInstance } from "../../utils/auth";
 import withUser from "../../components/withUser";
 import { useSelector } from "react-redux";
+
 
 const updateImmutable = (list, payload) => {
   const data = list.find((d) => d.id === payload.id);
@@ -30,11 +31,13 @@ const updateImmutable = (list, payload) => {
 };
 
 const ForumItem = ({}) => {
+  const [showModal, setShowModal] = useState(false);
+  const [showSecondModal, setShowSecondModal] = useState(false);
   const router = useRouter();
   const { id } = router.query;
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
-  const [like, setLike] = useState(0);
+  
   const [initialValues, setInitialValues] = useState([]);
   const [editComment, setEditComment] = useState(false);
   const [commentBody, setCommentBody] = useState("");
@@ -135,13 +138,13 @@ const ForumItem = ({}) => {
     setEditComment(!editComment);
   };
 
-  const handleReportButton = (e, postId) => {
-    e.preventDefault();
+  const handleReportButton = () => {
+    
 
-    const deleteUrl = `/posts/${postId}`;
+    const deleteUrl = `/posts/${id}`;
 
     console.log("delete id");
-    if (postId) {
+    if (id) {
       axiosInstance().delete(deleteUrl).then((res) => {
         console.log("res in report post", res)
         router.push("/forum")
@@ -183,6 +186,7 @@ const ForumItem = ({}) => {
     <>
       <LeftNav />
       <div className={styles.container}>
+
         <div className={styles.back}>
           {" "}
           <Link href="/myquestions"> &larr; back </Link>
@@ -232,11 +236,40 @@ const ForumItem = ({}) => {
                   <Skeleton width="30" height="14" />
                 )}
               </span>
+
+              {showModal ? (
+          <div className={styles.modalwarning}>
+            <FontAwesomeIcon
+              icon={faExclamationTriangle}
+              style={{ width: "80px", height: "70px", marginTop: "40px" }}
+            />
+            <h3 className={styles.modaltext}>Are you sure this post goes against the University policy? 
+              The post will be deleted and the user will be notified
+            </h3>
+            <div className={styles.modalbuttons}>
+              <button className={styles.confirmbuttonmodal} onClick={() => {setShowModal(false); setShowSecondModal(true)}}> Confirm </button>
+              <button className={styles.cancelbuttonmodal} onClick={() => setShowModal(false)}> Cancel </button>
+            </div>
+          </div>
+
+        ) : null}
+        {showSecondModal ? (
+          <div className={styles.modalwarning}>
+            <FontAwesomeIcon
+              icon={faCircleCheck}
+              style={{ width: "80px", height: "70px", marginTop: "40px" }}
+            />
+            <h2 className={styles.modaltext}>Post was deleted. The author will be notified.</h2>
+            <button className={styles.close} onClick={() => {setShowSecondModal(false); handleReportButton()}}> ok </button>
+
+          </div>
+        ) : null}
+
             </div>
             <button 
               className={getReportButtonClassName(currentUser)}
-                onClick={(e) => handleReportButton(e, post.id)}>
-              Report
+                onClick={() => setShowModal(true)}>
+              Report Post
             </button>
           </div>
         </div>

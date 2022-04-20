@@ -32,6 +32,7 @@
   flex-direction: column;
   background-color: white;
   padding-bottom: 10px;
+  border: 1px solid #727272;
 }
 .postdetails {
   height: 50px;
@@ -67,12 +68,12 @@
 
 .postsignature {
   display: flex;
-  width: 550px;
+  width: auto;
   height: 100px;
 
   flex-direction: row;
   text-align: center;
-  border: 1px solid #732e9c;
+ 
   border-radius: 3px;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
@@ -113,10 +114,10 @@
   padding: 10px 20px;
   border-radius: 4px;
   border-color: rgb(255, 107, 84);
-  width: 350px;
+  width: 180px;
   height: 50px;
   margin-top: 50px;
-  margin-left: 36%;
+  margin-left: 380px;
   margin-bottom: 16px;
 
 }
@@ -230,4 +231,78 @@
   font-weight: bold;
   font-size: 22px;
   color: rgb(255, 107, 84);;
+}
+
+.modalwarning{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #732e9c;
+  border-radius: 9px;
+  place-items: center;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 0px;
+  padding-bottom: 15px;
+  width: 600px;
+  height: 400px;
+  background-color: #ffffff;
+  color: #732e9c;
+  margin-top: -30px;
+  margin-left: 85px;
+  
+}
+.modaltext{
+  margin-top: 50px;
+}
+.modalmessage{
+  margin-top: 70px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  place-items: center;
+  width: auto;
+  height: auto;
+  background-color: blue;
+  color: #732e9c;
+}
+.modalbuttons{
+  display: flex;
+  flex-direction: row;
+  margin-top: 75px;
+  gap: 60px;
+}
+.confirmbuttonmodal{
+  background-color: #732e9c;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border-color: #732e9c;
+  width: 120px;
+  height: 50px;
+}
+.cancelbuttonmodal{
+  background-color: rgb(255, 107, 84);
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border-color: rgb(255, 107, 84);
+  width: 120px;
+  height: 50px;
+}
+.close{
+  background-color: #732e9c;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border-color: #732e9c;
+  width: 100px;
+  height: 50px;
+  margin-top: 80px;
 }

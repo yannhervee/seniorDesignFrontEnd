@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import{ faBars, faBell, faRocket} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react"
-import { axiosInstance } from '../utils/auth';
+
 import Skeleton from "react-loading-skeleton";
 import { useSelector } from 'react-redux';
 
