@@ -48,3 +48,16 @@
     font-size: 22px;
     color: azure;
 }
+.disablereputation{
+    display: none;
+}
+.backbutton{
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: transparent;
+    margin-left: -50px;
+    margin-top: 15px;
+    font-size: 22px;
+    color: #ffffff;
+  }

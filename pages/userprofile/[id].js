@@ -31,11 +31,24 @@ const Profile = () => {
       });
   }, [router.isReady, router.query]);
 
+  const getReputationClassName = () => {
+   // console.log("in report", user);
+   if(user){
+    return user.role.localeCompare("student") === 0
+      ? styles.info
+      : styles.disablereputation;
+   }
+    //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
+  };
+
+
   return (
     <>
       <div className={styles.header}>
         <div className={styles.back}>
-          <Link href="/dashboard"> &larr; back to dashboard </Link>
+          {" "}
+          {/* <Link href="/myquestions"> &larr; back </Link> */}
+          <button className={styles.backbutton} onClick={() => router.back()}> &larr; back </button>
         </div>
       </div>
       <div className={styles.container}>
@@ -53,7 +66,7 @@ const Profile = () => {
           <h4 className={styles.inforole}>{user.role}</h4>
           <h4 className={styles.info}>name: {user.name} </h4>
           <h4 className={styles.info}>email: {user.email} </h4>
-          <h4 className={styles.info}>reliability: {user.reliability} </h4>
+          
         </div>
       </div>
     </>

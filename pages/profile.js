@@ -34,9 +34,10 @@ const Profile = () => {
           <h4 className={styles.inforole}>{currentUser.role}</h4>
           <h4 className={styles.info}>name: {currentUser.name} </h4>
           <h4 className={styles.info}>email: {currentUser.email} </h4>
-          <h4 className={styles.info}>
-            reliability: {currentUser.reliability}{" "}
-          </h4>
+          {currentUser.role.localeCompare("student") === 0 ? (<h4 className={styles.info}>
+            reputation: {currentUser.reliability}{" "}
+          </h4>) : null}
+         
         </div>
       </div>
     </>

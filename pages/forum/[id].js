@@ -301,7 +301,7 @@ const ForumItem = ({}) => {
                       </Link>
                       <span className={styles.commenter}>
                         {" "}
-                        reliability: {comment.user.reliability}{" "}
+                        reputation: {comment.user.reliability}{" "}
                       </span>
                       <span className={styles.like}>
                         Was this answer helpful? &nbsp;
