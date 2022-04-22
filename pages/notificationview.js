@@ -6,12 +6,22 @@ import { axiosInstance } from "../utils/auth";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import withUser from "../components/withUser";
+import dayjs from "dayjs";
+
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
+
+dayjs().from(dayjs("1990-01-01")); // in 31 years
+dayjs().from(dayjs("1990-01-01"), true); // 31 years
+dayjs().fromNow();
+
+dayjs().to(dayjs("1990-01-01")); // "31 years ago"
+dayjs().toNow();
+
+dayjs.extend(relativeTime);
 
 const NotificationView = () => {
-
   const [notifications, setNotifications] = useState([]);
-  const [readNotifications, setReadNotifications] = useState([]);
-
 
   useEffect(() => {
     console.log("running effect");
@@ -32,17 +42,18 @@ const NotificationView = () => {
   const handleDismissButton = (notifId, e) => {
     e.preventDefault();
     const editUrl = `/notifications/${notifId}`;
-    
+
     if (notifId) {
-      axiosInstance().put(editUrl).then((res) => {
-       console.log("update notif", res)
-       setNotifications(
-        notifications.filter((notif) => notif.id !== notifId)
-      );
-      });
+      axiosInstance()
+        .put(editUrl)
+        .then((res) => {
+          console.log("update notif", res);
+          setNotifications(
+            notifications.filter((notif) => notif.id !== notifId)
+          );
+        });
     }
   };
-
 
   return (
     <>
@@ -50,34 +61,43 @@ const NotificationView = () => {
       <div className={styles.maincontainer}>
         <h1 className={styles.header}>Notifications</h1>
 
-        {notifications.slice(0).reverse().map((notification) => {
+        {notifications
+          .slice(0)
+          .reverse()
+          .map((notification) => {
+            return (
+              <>
+                <Link href={`../forum/${notification.post_id}`}>
+                  <div className={styles.question}>
+                    <div className={styles.notifbody}>
+                      <a className={styles.icon}>
+                        <FontAwesomeIcon
+                          icon={faNewspaper}
+                          style={{ width: "80px", height: "70px" }}
+                        />
+                      </a>
+                      <div className={styles.text}>{notification.body} </div>
+                    </div>
+                    <div className={styles.others}>
+                      <div className={styles.notiftime}>
+                        {dayjs(
+                          notification.created_at.substring(0, 10)
+                        ).fromNow()}
+                      </div>
+                      <button
+                        className={styles.dismiss}
+                        onClick={(e) => handleDismissButton(notification.id, e)}
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              </>
+            );
+          })}
 
-          return (
-            <>
-            <Link href={`../forum/${notification.post_id}`}>
-            <div className={styles.question}>
-              <div className={styles.notifbody}>
-                 <a className={styles.icon}>
-                  <FontAwesomeIcon
-                    icon={faNewspaper}
-                    style={{ width: "80px", height: "70px" }}
-                  />
-                </a>
-                <div className={styles.text}>
-                  {notification.body}{" "}
-                </div>
-              </div>
-              <div className={styles.others}>
-                <div className={styles.notiftime}>3h</div>
-                <button className={styles.dismiss} onClick={(e) => handleDismissButton(notification.id, e)}>Dismiss</button>
-              </div>
-            </div>
-        </Link>
-            </>
-          )
-        })}
-
-{/*         <div className={styles.question}>
+        {/*         <div className={styles.question}>
           <div className={styles.notifbody}>
             <a className={styles.icon}>
               <FontAwesomeIcon

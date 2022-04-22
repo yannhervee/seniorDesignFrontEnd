@@ -8,14 +8,28 @@ import LeftNav from "../../components/LeftNav";
 import Link from "next/link";
 import { Form, Field } from "react-final-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faExclamationTriangle, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faThumbsUp,
+  faExclamationTriangle,
+  faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import Skeleton from "react-loading-skeleton";
 import { axiosInstance } from "../../utils/auth";
 import withUser from "../../components/withUser";
 import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
+var relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
+dayjs().from(dayjs("1990-01-01")); // in 31 years
+dayjs().from(dayjs("1990-01-01"), true); // 31 years
+dayjs().fromNow();
 
+dayjs().to(dayjs("1990-01-01")); // "31 years ago"
+dayjs().toNow();
+
+dayjs.extend(relativeTime);
 
 const updateImmutable = (list, payload) => {
   const data = list.find((d) => d.id === payload.id);
@@ -39,14 +53,13 @@ const ForumItem = ({}) => {
   const { id } = router.query;
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
-  
+
   const [initialValues, setInitialValues] = useState([]);
   const [editComment, setEditComment] = useState(false);
   const [commentBody, setCommentBody] = useState("");
   const [commentUpdate, setCommentUpdate] = useState({});
-  
-  
-  const { user: currentUser } = useSelector((state) => state.user)
+
+  const { user: currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -115,13 +128,14 @@ const ForumItem = ({}) => {
       .catch(() => {});
   };
 
-  const handleLikeButton = (commentId, e) => {
+  const handleLikeButton = (commentId, commentUserId, e) => {
     e.preventDefault();
 
     axiosInstance()
       .post("/reactions/reacted", {
         // current user todo
         comment_id: commentId,
+        comment_user_id: commentUserId,
       })
       .then((res) => {
         console.log("reaction checking", res);
@@ -142,20 +156,18 @@ const ForumItem = ({}) => {
   };
 
   const handleReportButton = () => {
-    
-
     const deleteUrl = `/posts/${id}`;
 
     console.log("delete id");
     if (id) {
-      axiosInstance().delete(deleteUrl).then((res) => {
-        console.log("res in report post", res)
-        router.back()
-        //router.push("/forum")
-      });
+      axiosInstance()
+        .delete(deleteUrl)
+        .then((res) => {
+          console.log("res in report post", res);
+          router.back();
+          //router.push("/forum")
+        });
     }
-
-   
   };
 
   const getEditButtonClassName = (commenter) => {
@@ -177,7 +189,7 @@ const ForumItem = ({}) => {
 
   const getReportButtonClassName = (user) => {
     console.log("in report", user);
-   
+
     return user.role.localeCompare("professor") === 0
       ? styles.report
       : styles.disablebutton;
@@ -190,11 +202,13 @@ const ForumItem = ({}) => {
     <>
       <LeftNav />
       <div className={styles.container}>
-
         <div className={styles.back}>
           {" "}
           {/* <Link href="/myquestions"> &larr; back </Link> */}
-          <button className={styles.backbutton} onClick={() => router.back()}> &larr; back </button>
+          <button className={styles.backbutton} onClick={() => router.back()}>
+            {" "}
+            &larr; back{" "}
+          </button>
         </div>
         <div className={styles.maincontent}>
           <div className={styles.postdetails}>
@@ -235,45 +249,74 @@ const ForumItem = ({}) => {
             </div>
             <div className={styles.date}>
               <span>
+                {" "}
+                asked &nbsp;
                 {post ? (
-                  `asked ${post.created_at}`
+                  dayjs(post.created_at.substring(0, 10)).fromNow()
                 ) : (
+                  // `asked ${post.created_at}`
+
                   <Skeleton width="30" height="14" />
                 )}
               </span>
 
               {showModal ? (
-          <div className={styles.modalwarning}>
-            <FontAwesomeIcon
-              icon={faExclamationTriangle}
-              style={{ width: "80px", height: "70px", marginTop: "40px" }}
-            />
-            <h3 className={styles.modaltext}>Are you sure this post goes against the University policy? 
-              The post will be deleted and the user will be notified
-            </h3>
-            <div className={styles.modalbuttons}>
-              <button className={styles.confirmbuttonmodal} onClick={() => {setShowModal(false); setShowSecondModal(true)}}> Confirm </button>
-              <button className={styles.cancelbuttonmodal} onClick={() => setShowModal(false)}> Cancel </button>
+                <div className={styles.modalwarning}>
+                  <FontAwesomeIcon
+                    icon={faExclamationTriangle}
+                    style={{ width: "80px", height: "70px", marginTop: "40px" }}
+                  />
+                  <h3 className={styles.modaltext}>
+                    Are you sure this post goes against the University policy?
+                    The post will be deleted and the user will be notified
+                  </h3>
+                  <div className={styles.modalbuttons}>
+                    <button
+                      className={styles.confirmbuttonmodal}
+                      onClick={() => {
+                        setShowModal(false);
+                        setShowSecondModal(true);
+                      }}
+                    >
+                      {" "}
+                      Confirm{" "}
+                    </button>
+                    <button
+                      className={styles.cancelbuttonmodal}
+                      onClick={() => setShowModal(false)}
+                    >
+                      {" "}
+                      Cancel{" "}
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+              {showSecondModal ? (
+                <div className={styles.modalwarning}>
+                  <FontAwesomeIcon
+                    icon={faCircleCheck}
+                    style={{ width: "80px", height: "70px", marginTop: "40px" }}
+                  />
+                  <h2 className={styles.modaltext}>
+                    Post was deleted. The author will be notified.
+                  </h2>
+                  <button
+                    className={styles.close}
+                    onClick={() => {
+                      setShowSecondModal(false);
+                      handleReportButton();
+                    }}
+                  >
+                    {" "}
+                    ok{" "}
+                  </button>
+                </div>
+              ) : null}
             </div>
-          </div>
-
-        ) : null}
-        {showSecondModal ? (
-          <div className={styles.modalwarning}>
-            <FontAwesomeIcon
-              icon={faCircleCheck}
-              style={{ width: "80px", height: "70px", marginTop: "40px" }}
-            />
-            <h2 className={styles.modaltext}>Post was deleted. The author will be notified.</h2>
-            <button className={styles.close} onClick={() => {setShowSecondModal(false); handleReportButton()}}> ok </button>
-
-          </div>
-        ) : null}
-
-            </div>
-            <button 
+            <button
               className={getReportButtonClassName(currentUser)}
-                onClick={() => setShowModal(true)}>
+              onClick={() => setShowModal(true)}
+            >
               Report Post
             </button>
           </div>
@@ -291,10 +334,10 @@ const ForumItem = ({}) => {
                         {comment.user.name.charAt(0).toUpperCase()}{" "}
                       </div>
                     </div>
-              
+
                     <div className={styles.commenterinfo}>
                       <Link href={`/userprofile/${comment.user.id}`}>
-                        <span  className={styles.namecommenter}>
+                        <span className={styles.namecommenter}>
                           {" "}
                           {comment.user.name}
                         </span>
@@ -307,7 +350,9 @@ const ForumItem = ({}) => {
                         Was this answer helpful? &nbsp;
                         <button
                           clasName={getLikeButtonClassName(comment.user_id)}
-                          onClick={(e) => handleLikeButton(comment.id, e)}
+                          onClick={(e) =>
+                            handleLikeButton(comment.id, comment.user_id, e)
+                          }
                         >
                           <FontAwesomeIcon
                             icon={faThumbsUp}
