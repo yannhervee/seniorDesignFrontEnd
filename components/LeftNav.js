@@ -11,8 +11,8 @@ import {
   faNewspaper,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter}  from "next/router";
-import {  axiosInstance, removeDocumentAuthCookies } from "../utils/auth";
+import { useRouter } from "next/router";
+import { axiosInstance, removeDocumentAuthCookies } from "../utils/auth";
 import { useDispatch } from "react-redux";
 import { register } from "../features/userSlice";
 
@@ -20,16 +20,15 @@ const LeftNav = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { pathname } =  router;
+  const { pathname } = router;
 
   const onLogout = () => {
     axiosInstance()
       .delete("/auth/sign_out")
       .then((res) => {
         removeDocumentAuthCookies();
-        router.push("/login").then(() => {
-          dispatch(register(null));
-        });
+        dispatch(register(null));
+        router.push("/login").then(() => {});
       })
       .catch();
   };
@@ -44,9 +43,7 @@ const LeftNav = () => {
               style={{ width: "18px", cursor: "pointer" }}
             />
             <Link href="/dashboard">
-              <a
-                className={pathname == "/dashboard" ? styles.active : ""}
-              >
+              <a className={pathname == "/dashboard" ? styles.active : ""}>
                 {" "}
                 Dashboard
               </a>
@@ -58,11 +55,7 @@ const LeftNav = () => {
               style={{ width: "18px", cursor: "pointer" }}
             />
             <Link href="/myquestions">
-              <a
-                className={
-                  pathname == "/myquestions" ? styles.active : ""
-                }
-              >
+              <a className={pathname == "/myquestions" ? styles.active : ""}>
                 {" "}
                 My Questions
               </a>
@@ -86,9 +79,7 @@ const LeftNav = () => {
               style={{ width: "18px", cursor: "pointer" }}
             />
             <Link href="/profile">
-              <a
-                className={pathname == "/settings" ? styles.active : ""}
-              >
+              <a className={pathname == "/settings" ? styles.active : ""}>
                 {" "}
                 My Profile
               </a>
@@ -99,10 +90,7 @@ const LeftNav = () => {
               icon={faSignOutAlt}
               style={{ width: "18px", cursor: "pointer" }}
             />
-            <button
-              onClick={onLogout}
-              className={styles.logout}
-            >
+            <button onClick={onLogout} className={styles.logout}>
               {" "}
               Logout
             </button>
