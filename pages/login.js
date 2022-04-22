@@ -81,6 +81,12 @@ const Login = () => {
               <Link href="/register">Sign up</Link>
             </a>
           </p>
+          <p className={styles.signuplink}>
+            Forgot your password?{" "}
+            <a className={styles.linkitem}>
+              <Link href="/resetpassword">Reset here</Link>
+            </a>
+          </p>
         </div>
       </div>
       <div className={`${styles.split} ${styles.left}`}>

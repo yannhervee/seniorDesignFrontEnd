@@ -7,57 +7,60 @@ import { useSelector, useDispatch } from "react-redux";
 import { register, selectUser } from "../features/userSlice";
 import { axiosInstance } from "../utils/auth";
 
-
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === "undefined";
 
 const withUser = (WrappedComponent) => {
-    const WithUser = (props) => {
+  const WithUser = (props) => {
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
 
-        const dispatch = useDispatch()
-        const user = useSelector(selectUser)
+    console.log("user", user);
 
-        console.log('user', user)
-      
-        const [loading, setLoading] = useState(!user)
+    const [loading, setLoading] = useState(!user);
 
-        useEffect(() => {
-            if (!loading) return 
+    useEffect(() => {
+      if (!loading) return;
 
-            axiosInstance().get('/users/fetch_current_user')
-            .then((res) => {
-                console.log(res)
-                if(res.data){
+      axiosInstance()
+        .get("/users/fetch_current_user")
+        .then((res) => {
+          console.log(res);
+
+          /*if(res.data){
                     dispatch(register(res.data))
                 }else{
                     if(Router.pathname!= "/register"){
                         Router.push('/login')
                     }
-                }
-                //res.data ? dispatch(register(res.data)) : Router.push('/login')
-                setLoading(false)             
-            })
-            .catch(() => {
-                //
-            })
+                }*/
+          dispatch(register(res.data));
+          //res.data ? dispatch(register(res.data)) : Router.push('/login')
+          setLoading(false);
+        })
+        .catch(() => {
+          //
+        });
+    }, [loading]);
 
-        }, [loading])
-      
+    console.log("user ", user);
 
-        if (isServer) {
-            return null
-        } else if ((['/login', '/register'].includes(Router.pathname) && user)) {
-            console.log("am i here?")
-            Router.push('/dashboard')
-            return null
-        } else {
-            return loading ? 'Loading...' : <WrappedComponent {...props} />;
-        }
-    };
-  
-    // WithUser.propTypes = {};
-  
-    return WithUser
+    if (isServer) {
+      return null;
+    } else if (
+      ["/login", "/register", "/resetpassword"].includes(Router.pathname) &&
+      user
+    ) {
+      console.log("am i here?");
+      Router.push("/dashboard");
+      return null;
+    } else {
+      return loading ? "Loading..." : <WrappedComponent {...props} />;
+    }
   };
-  
-  export default withUser;
-  
+
+  // WithUser.propTypes = {};
+
+  return WithUser;
+};
+
+export default withUser;
