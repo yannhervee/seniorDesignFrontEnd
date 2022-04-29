@@ -137,7 +137,7 @@ const Register = () => {
                 required
               />
             </div>
-            <p>{errorpassword}</p>
+            <p className={styles.errordisplay}>{errorpassword}</p>
             <div>
               <label for="confirmpassword" className={styles.label}>
                 Confirm Password *
@@ -152,7 +152,7 @@ const Register = () => {
                 required
               />
             </div>
-            <p>{errorConfirmPassword}</p>
+            <p className={styles.errordisplay}>{errorConfirmPassword}</p>
             <div>
               <label for="role" className={styles.label}>
                 I am a{" "}

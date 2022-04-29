@@ -33,6 +33,7 @@ const Forum = () => {
       <LeftNav />
       <div className={styles.container}>
         <h1 className={styles.title}> Forum </h1>
+        {posts.length ? null : <h3> No post yet!</h3>}
 
         {posts
           .slice(0)
@@ -51,7 +52,7 @@ const Forum = () => {
                     </div>
                     <div className={styles.questioninfo}>
                       <span className={styles.questioncontent}>
-                        {post.body.slice(0,200)}
+                        {post.body.slice(0, 200)}
                       </span>
                       <span className={styles.topic}> {post.topic.name}</span>
                     </div>

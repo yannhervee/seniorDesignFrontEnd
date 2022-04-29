@@ -181,9 +181,10 @@ const ForumItem = ({}) => {
     console.log("in like");
     console.log("commeterid", commenter);
     console.log("currentuser", currentUser.id);
+
     return currentUser.id === commenter
-      ? styles.buttonedit
-      : styles.disablebutton;
+      ? styles.disablebutton
+      : styles.buttonedit;
     //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
   };
 
@@ -349,7 +350,7 @@ const ForumItem = ({}) => {
                       <span className={styles.like}>
                         Was this answer helpful? &nbsp;
                         <button
-                          clasName={getLikeButtonClassName(comment.user_id)}
+                          className={getLikeButtonClassName(comment.user_id)}
                           onClick={(e) =>
                             handleLikeButton(comment.id, comment.user_id, e)
                           }

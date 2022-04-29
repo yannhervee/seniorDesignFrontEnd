@@ -54,7 +54,19 @@ const withUser = (WrappedComponent) => {
       Router.push("/dashboard");
       return null;
     } else {
-      return loading ? "Loading..." : <WrappedComponent {...props} />;
+      if (loading) {
+        return "Loading";
+      } else if (
+        !["/login", "/register", "/resetpassword", "/passwordchange"].includes(
+          Router.pathname
+        ) &&
+        !user
+      ) {
+        Router.push("/login");
+        return null;
+      } else {
+        return <WrappedComponent {...props} />;
+      }
     }
   };
 

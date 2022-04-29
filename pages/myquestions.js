@@ -32,6 +32,7 @@ const Myquestions = () => {
       <LeftNav />
       <div className={styles.container}>
         <h1 className={styles.title}> My Questions </h1>
+        {posts.length ? null : <h3> You have not posted any questions yet</h3>}
 
         {posts
           .slice(0)
@@ -50,7 +51,7 @@ const Myquestions = () => {
                     </div>
                     <div className={styles.questioninfo}>
                       <span className={styles.questioncontent}>
-                      {post.body.slice(0,200)}
+                        {post.body.slice(0, 200)}
                       </span>
                       <span className={styles.topic}> {post.topic.name}</span>
                       <Link href={`edit/${post.id}`}>

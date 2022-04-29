@@ -8,6 +8,7 @@ import { axiosInstance } from "../utils/auth";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const resetPassword = async (event) => {
     event.preventDefault();
     axiosInstance()
@@ -17,6 +18,7 @@ const ResetPassword = () => {
       })
       .then((res) => {
         console.log("resdata", res);
+        setMessage(res.data.message);
       })
       .catch((e) => {
         // TODO: handle user with accounts
@@ -58,6 +60,16 @@ const ResetPassword = () => {
               <Link href="/login">Cancel </Link>
             </a>
           </p>
+          {message ? (
+            <p
+              style={{
+                color: "red",
+                "margin-top": "20px",
+              }}
+            >
+              {message}{" "}
+            </p>
+          ) : null}
         </div>
       </div>
       <div className={`${styles.split} ${styles.left}`}>
