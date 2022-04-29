@@ -106,7 +106,7 @@ const Courses = () => {
         <div className={styles.butcontainer}>
           <button className={styles.buttonCourse} onClick={handleButton}>
             {" "}
-            Complete registration
+            Complete
           </button>
         </div>
       </div>

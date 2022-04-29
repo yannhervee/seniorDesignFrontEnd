@@ -318,7 +318,7 @@ const ForumItem = ({}) => {
               className={getReportButtonClassName(currentUser)}
               onClick={() => setShowModal(true)}
             >
-              Report Post
+              Delete Post
             </button>
           </div>
         </div>
