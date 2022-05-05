@@ -9,6 +9,7 @@
 }
 .question {
   padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 20px;
   display: flex;
   flex-direction: row;
@@ -17,8 +18,9 @@
   border: solid 2px;
   background-color: #ffffff;
   border-color: #e7e9eb;
-
+  align-items: center;
   position: relative;
+  gap: 5px;
 }
 .circle {
   border-radius: 50%;
@@ -26,6 +28,16 @@
   height: 75px;
   padding: 10px;
   background: rgb(255, 107, 84);
+  border: 3px solid rgb(255, 107, 84);
+  color: #fff;
+  text-align: center;
+  font: 42px Arial, sans-serif;
+}
+.imagebox {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  padding: 10px;
   border: 3px solid rgb(255, 107, 84);
   color: #fff;
   text-align: center;
@@ -41,7 +53,7 @@
 .questioninfo {
   margin-left: 25px;
   padding-left: 10px;
-  width: 850px;
+  width: 750px;
   padding-top: 15px;
   flex-direction: column;
   margin-top: -10px;
@@ -76,22 +88,23 @@
 }
 
 .comments {
-  margin-left: 25px;
   color: #732e9c;
   font-weight: bold;
   font-size: 22px;
-  width: 250px;
+  width: auto;
   text-align: center;
-  margin-top: 20px;
+  padding: 5px;
   border-right: solid 1px #732e9c;
+  height: 77px;
+  display: flex;
+  align-items: center;
 }
 
 .course {
-  margin-left: 25px;
   color: #732e9c;
   font-weight: bold;
   font-size: 22px;
-  width: 250px;
+  width: auto;
+  padding: 5px;
   text-align: center;
-  margin-top: 20px;
 }

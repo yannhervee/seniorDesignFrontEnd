@@ -3,7 +3,7 @@
   display: table-row;
   margin-left: 220px;
   margin-top: -250px;
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 .contentwrapper {
@@ -160,14 +160,20 @@
   flex-flow: wrap;
 }
 
-.suggestion{
+.suggestion {
   cursor: pointer;
   border-right: 1px solid purple;
   border-left: 1px solid purple;
   border-bottom: 1px solid purple;
-
 }
 
-.suggestion:hover{
+.suggestion:hover {
   background-color: grey;
+}
+
+.labelcourseedit {
+  color: #732e9c;
+  margin-top: 30px;
+  font-weight: bold;
+  margin-left: 400px;
 }

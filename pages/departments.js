@@ -74,11 +74,13 @@ const Departments = () => {
 
   return (
     <>
-      <div>
+      <div className={departmentstyles.questionWrapper}>
         <h1 className={departmentstyles.title}>
           Which departments are you interested ?
         </h1>
-        <div>{renderDepartments()}</div>
+        <div className={departmentstyles.optionsWrapper}>
+          {renderDepartments()}
+        </div>
         <div className={departmentstyles.butcontainer}>
           <Link
             href={{

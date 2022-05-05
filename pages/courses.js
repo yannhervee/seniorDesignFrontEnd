@@ -98,13 +98,25 @@ const Courses = () => {
     return;
   };
 
+  const getButtonClassName = () => {
+    console.log(selectedCourses);
+    const disabledButton = styles.disabledbuttoncourse;
+    return Object.keys(selectedCourses).length === 0
+      ? styles.disabledbuttoncourse
+      : styles.buttonCourse;
+  };
+
   return (
     <>
-      <div>
+      <div className={styles.questionWrapper}>
         <h1 className={styles.title}>Which courses are you interested in?</h1>
-        <div>{renderCourses()}</div>
+        <div className={styles.optionsWrapper}>{renderCourses()}</div>
         <div className={styles.butcontainer}>
-          <button className={styles.buttonCourse} onClick={handleButton}>
+          <button
+            className={getButtonClassName()}
+            onClick={handleButton}
+            disabled={Object.keys(selectedCourses).length === 0}
+          >
             {" "}
             Complete
           </button>

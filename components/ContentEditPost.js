@@ -2,59 +2,48 @@ import styles from "../styles/ContentPostQuestion.module.css";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Form, Field } from "react-final-form";
-import axios from "axios";
-
 import { useRouter } from "next/router";
 import { axiosInstance } from "../utils/auth";
 
 const required = (value) => (value ? undefined : "Required");
-const composeValidators =
-  (...validators) =>
-  (value) =>
-    validators.reduce(
-      (error, validator) => error || validator(value),
-      undefined
-    );
 
 const ContentEditPost = () => {
-  
-  const [topics, setTopics] = useState([])
-  const [text, setText] = useState('')
-  const [suggestions, setSuggestions] = useState([])
+  const [topics, setTopics] = useState([]);
+  const [text, setText] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [initialValues, setInitialValues] = useState([])
-  const [body, setBody] = useState()
-  const [topic, setTopic] = useState('')
-  const [course, setCourse] = useState()
-  const [courseId, setCourseId] = useState()
-  const [topicId, setTopicId] = useState()
+  const [initialValues, setInitialValues] = useState([]);
+  const [body, setBody] = useState();
+  const [topic, setTopic] = useState("");
+  const [course, setCourse] = useState();
+  const [courseId, setCourseId] = useState();
+  const [topicId, setTopicId] = useState();
   const router = useRouter();
-  const {id} = router.query
-  
-  
- 
-  useEffect(() => {
-    if (!router.isReady) return
+  const { id } = router.query;
 
-    console.log('running effect')
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    console.log("running effect");
 
     // Promises
-    axiosInstance().get(`/posts/${id}/edit`)
-    .then((res) => {
-        console.log("edit post data", res)
-        
-        setBody(res.data.body);
-        setTopic(res.data.topic.name)
-        setCourse(res.data.topic.course.name)
-        setCourseId(res.data.topic.course_id)
-        setTopicId(res.data.topic.id)
-    })
-    .catch((e) => {
-        console.log('error', e);
-    })
-}, [router.isReady, router.query])
+    axiosInstance()
+      .get(`/posts/${id}/edit`)
+      .then((res) => {
+        console.log("edit post data", res);
 
-//console.log("INITIAL DATA", post)
+        setBody(res.data.body);
+        setTopic(res.data.topic.name);
+        setCourse(res.data.topic.course.name);
+        setCourseId(res.data.topic.course_id);
+        setTopicId(res.data.topic.id);
+      })
+      .catch((e) => {
+        console.log("error", e);
+      });
+  }, [router.isReady, router.query]);
+
+  //console.log("INITIAL DATA", post)
 
   useEffect(() => {
     axiosInstance()
@@ -66,30 +55,27 @@ const ContentEditPost = () => {
       .catch(() => {});
   }, []);
 
-
   useEffect(() => {
     axiosInstance()
       .get("/topics")
       .then((res) => {
         console.log("topic response", res.data);
         setTopics(res.data);
-        
       })
       .catch(() => {});
   }, []);
 
-
   const onSubmit = () => {
-    if(text){
-      setTopic(text)
+    if (text) {
+      setTopic(text);
     } else {
-      setTopic("No Topic")
+      setTopic("No Topic");
     }
-      const updateFields = {
-        topic,
-        body,
-        topic_id: topicId,
-      }
+    const updateFields = {
+      topic,
+      body,
+      topic_id: topicId,
+    };
     console.log(updateFields, "values");
     return axiosInstance()
       .put(`/posts/${id}`, updateFields)
@@ -100,25 +86,26 @@ const ContentEditPost = () => {
       .catch(() => {});
   };
 
-   const onChangeHandler = (text) => {
-     // setTopic(text)
-    console.log("text in onchange", text)
-    let matches = []
-    if(text.length > 0) {
-      matches = topics.filter(topic => {
+  const onChangeHandler = (text) => {
+    // setTopic(text)
+    console.log("text in onchange", text);
+    let matches = [];
+    if (text.length > 0) {
+      matches = topics.filter((topic) => {
         const regex = new RegExp(`${text}`);
-        return topic.name.match(regex)
-      })
+        return topic.name.match(regex);
+      });
     }
-    console.log("matches", matches)
-    setSuggestions(matches)
-    setTopic(text)
-  }
+    console.log("matches", matches);
+    setSuggestions(matches);
+    setTopic(text);
+  };
 
   const onSuggestHandler = (text) => {
-    setText(text);
-    setSuggestions([])
-  } 
+    console.log("setting text");
+    setTopic(text);
+    setSuggestions([]);
+  };
 
   return (
     <>
@@ -147,32 +134,14 @@ const ContentEditPost = () => {
       <div className={styles.coursestab}>
         <Form
           onSubmit={onSubmit}
-          initialValues={initialValues}
+          initialValues={{ topic: topic, question: body }}
           render={({ handleSubmit, form, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit} style={{ width: "100%" }}>
               `{" "}
-              <div className={styles.stepwrapper}>
-                <label className={styles.label}>
-                  {" "}
-                  1- Tell us what course you need help with *{" "}
+              <div className={styles.setpwrapper}>
+                <label className={styles.labelcourseedit}>
+                  Course: {course}
                 </label>
-              </div>
-              <div className={styles.coursewrapper}>
-                <Field
-                  name="course_id"
-                  className={styles.selectinput}
-                
-                  //onChange={e => setRole(e.target.value)}
-                  component="select"
-                >
-                  {courses.map((c) => {
-                    return <>
-                    <option value={courseId}>{course}</option>
-                    <option value={c.id}>{c.name}</option>;
-                    </>
-                    
-                  })}
-                </Field>
               </div>
               <div className={styles.topicwrapper}>
                 <label className={styles.label}>
@@ -180,11 +149,7 @@ const ContentEditPost = () => {
                   2- Topic you need help with *{" "}
                 </label>
               </div>
-              <Field
-                type="text"
-                name="topic"
-                component="input"
-              >
+              <Field type="text" name="topic" component="input">
                 {({ input, meta }) => (
                   <div
                     style={{
@@ -198,24 +163,25 @@ const ContentEditPost = () => {
                     <input
                       {...input}
                       type="text"
-                      onChange={e => onChangeHandler(e.target.value)}
+                      onChange={(e) => onChangeHandler(e.target.value)}
                       className={styles.topicinput}
                       value={topic}
                       onBlur={() => {
-                      setTimeout(() => {
-                      setSuggestions([])
-                        }, 100)
+                        setTimeout(() => {
+                          setSuggestions([]);
+                        }, 100);
                       }}
                     />
-                    {suggestions && suggestions.map((suggestion, i) =>
-                    <div 
-                      key={i} 
-                      className={styles.suggestion}
-                      onClick={() => onSuggestHandler(suggestion.name)}
-                      >
-                        {suggestion.name}
-                    </div>
-                    )}
+                    {suggestions &&
+                      suggestions.map((suggestion, i) => (
+                        <div
+                          key={i}
+                          className={styles.suggestion}
+                          onClick={() => onSuggestHandler(suggestion.name)}
+                        >
+                          {suggestion.name}
+                        </div>
+                      ))}
                     {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>
                 )}
@@ -231,8 +197,7 @@ const ContentEditPost = () => {
                 name="question"
                 className={styles.questioninput}
                 component="input"
-                
-                //validate={required}
+                validate={required}
               >
                 {({ input, meta }) => (
                   <div
@@ -243,12 +208,11 @@ const ContentEditPost = () => {
                       width: "100%",
                     }}
                   >
-                    <input
+                    <textarea
                       {...input}
-                      type="text"
-                      value={body}
+                      type="textarea"
                       className={styles.questioninput}
-                      onChange={e => setBody(e.target.value)}
+                      onChange={(e) => setBody(e.target.value)}
                     />
                     {meta.error && meta.touched && <span>{meta.error}</span>}
                   </div>

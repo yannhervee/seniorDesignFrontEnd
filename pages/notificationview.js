@@ -80,9 +80,7 @@ const NotificationView = () => {
                     </div>
                     <div className={styles.others}>
                       <div className={styles.notiftime}>
-                        {dayjs(
-                          notification.created_at.substring(0, 10)
-                        ).fromNow()}
+                        {dayjs(notification.created_at).fromNow()}
                       </div>
                       <button
                         className={styles.dismiss}

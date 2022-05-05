@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
@@ -18,16 +20,11 @@ import { axiosInstance } from "../../utils/auth";
 import withUser from "../../components/withUser";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
+import Moment from "react-moment";
+import "moment-timezone";
 
 var relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
-
-dayjs().from(dayjs("1990-01-01")); // in 31 years
-dayjs().from(dayjs("1990-01-01"), true); // 31 years
-dayjs().fromNow();
-
-dayjs().to(dayjs("1990-01-01")); // "31 years ago"
-dayjs().toNow();
 
 dayjs.extend(relativeTime);
 
@@ -45,6 +42,7 @@ const updateImmutable = (list, payload) => {
 
   return list;
 };
+const required = (value) => (value ? undefined : "Required");
 
 const ForumItem = ({}) => {
   const [showModal, setShowModal] = useState(false);
@@ -93,6 +91,11 @@ const ForumItem = ({}) => {
   console.log(router.isReady);
 
   const onSubmit = (values) => {
+    /* in the form for submitting input onSubmit={(event) => {
+      handleSubmit().then(() => {
+        form.reset();
+      });
+    }} */
     console.log(values, "values");
     console.log("values comment", values.comment);
     return axiosInstance()
@@ -101,6 +104,7 @@ const ForumItem = ({}) => {
         body: values.comment,
       })
       .then((res) => {
+        router.reload();
         console.log(res);
       })
       .catch(() => {});
@@ -108,28 +112,34 @@ const ForumItem = ({}) => {
 
   const onEditComment = (e) => {
     e.preventDefault();
-    return axiosInstance()
-      .put(`/comments/${commentUpdate.id}`, {
-        body: commentBody,
-      })
-      .then((res) => {
-        console.log(res);
+    if (!commentBody) {
+      console.log("isempty");
+      return;
+    } else {
+      return axiosInstance()
+        .put(`/comments/${commentUpdate.id}`, {
+          body: commentBody,
+        })
+        .then((res) => {
+          console.log(res);
 
-        setCommentUpdate();
-        setEditComment(!editComment);
+          setCommentUpdate();
+          setEditComment(!editComment);
 
-        const newComment = commentUpdate;
-        newComment.body = commentBody;
+          const newComment = commentUpdate;
+          newComment.body = commentBody;
 
-        const newComments = updateImmutable(comments, newComment);
-        setComments(newComments);
-        setCommentBody("");
-      })
-      .catch(() => {});
+          const newComments = updateImmutable(comments, newComment);
+          setComments(newComments);
+          setCommentBody("");
+        })
+        .catch(() => {});
+    }
   };
 
-  const handleLikeButton = (commentId, commentUserId, e) => {
+  const handleLikeButton = (commentId, commentUserId, comment, e) => {
     e.preventDefault();
+    console.log("like method");
 
     axiosInstance()
       .post("/reactions/reacted", {
@@ -177,14 +187,21 @@ const ForumItem = ({}) => {
       ? styles.buttonedit
       : styles.disablebutton;
   };
-  const getLikeButtonClassName = (commenter) => {
-    console.log("in like");
-    console.log("commeterid", commenter);
+  const getLikeButtonClassName = (comment) => {
+    console.log("comment clicked", comment);
+    console.log("commeterid", comment.user.id);
     console.log("currentuser", currentUser.id);
 
-    return currentUser.id === commenter
+    /*  if (comment.reactions?.some((e) => e.user_id === currentUser.id)) {
+      return styles.buttonisliked;
+      /* vendors contains the element we're looking for 
+    } else {
+      styles.buttonlike;
+    } */
+
+    return currentUser.id === comment.user.id
       ? styles.disablebutton
-      : styles.buttonedit;
+      : styles.buttonl;
     //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
   };
 
@@ -195,6 +212,13 @@ const ForumItem = ({}) => {
       ? styles.report
       : styles.disablebutton;
     //return currentUser.id === commenter ?  styles.disablebutton : styles.buttonlike
+  };
+
+  const getButtonUpdateClassName = () => {
+    // const disabledButton = styles.disabledbuttoncourse;
+    return commentBody.length === 0
+      ? styles.disabledbuttonupdate
+      : styles.update;
   };
 
   console.log(post);
@@ -253,7 +277,7 @@ const ForumItem = ({}) => {
                 {" "}
                 asked &nbsp;
                 {post ? (
-                  dayjs(post.created_at.substring(0, 10)).fromNow()
+                  dayjs(post.created_at).fromNow()
                 ) : (
                   // `asked ${post.created_at}`
 
@@ -350,9 +374,14 @@ const ForumItem = ({}) => {
                       <span className={styles.like}>
                         Was this answer helpful? &nbsp;
                         <button
-                          className={getLikeButtonClassName(comment.user_id)}
+                          className={getLikeButtonClassName(comment)}
                           onClick={(e) =>
-                            handleLikeButton(comment.id, comment.user_id, e)
+                            handleLikeButton(
+                              comment.id,
+                              comment.user_id,
+                              comment,
+                              e
+                            )
                           }
                         >
                           <FontAwesomeIcon
@@ -365,37 +394,57 @@ const ForumItem = ({}) => {
                           />
                         </button>
                       </span>
-                      <span className={styles.count}>
+
+                      <span
+                        className={styles.alwaysvisible + " " + styles.count}
+                      >
                         {" "}
                         {comment.reactions_count}{" "}
+                        <div
+                          className={
+                            styles.reactionsWrapper + " " + styles.showonhover
+                          }
+                        >
+                          {comment.reactions?.map((reaction) => {
+                            return (
+                              <>
+                                <span>{reaction.user.name}</span>
+                              </>
+                            );
+                          })}
+                        </div>
                       </span>
-
-                      <button
-                        className={getEditButtonClassName(comment.user_id)}
-                        onClick={(e) => handleEditButton(e, comment)}
-                      >
-                        Edit
-                      </button>
 
                       {editComment &&
                       commentUpdate &&
                       commentUpdate.id === comment.id ? (
                         <div className={styles.editbox}>
-                          <input
+                          <textarea
                             name="comment"
                             onChange={(e) => setCommentBody(e.target.value)}
                             type="text"
+                            value={commentBody}
                             className={styles.inputeditcomment}
                             placeholder="Type here ..."
-                            value={commentBody}
-                          />
+                            required
+                          ></textarea>
+
                           <button
                             type="submit"
-                            className={styles.update}
+                            className={getButtonUpdateClassName()}
+                            disabled={commentBody.length === 0}
                             onClick={(e) => onEditComment(e)}
                           >
                             {" "}
                             Update{" "}
+                          </button>
+                          <button
+                            type="submit"
+                            className={styles.cancelupdate}
+                            onClick={(e) => setEditComment(!editComment)}
+                          >
+                            {" "}
+                            Cancel{" "}
                           </button>
                         </div>
                       ) : (
@@ -405,6 +454,12 @@ const ForumItem = ({}) => {
                   </div>
                   <div className={styles.comment}>
                     <p> {comment.body} </p>
+                    <button
+                      className={getEditButtonClassName(comment.user_id)}
+                      onClick={(e) => handleEditButton(e, comment)}
+                    >
+                      Edit
+                    </button>
                   </div>
                 </div>
               </>
@@ -425,21 +480,35 @@ const ForumItem = ({}) => {
                 pristine,
                 values,
               }) => (
-                <form
-                  className={styles.formbox}
-                  onSubmit={(event) => {
-                    handleSubmit().then(() => {
-                      form.reset();
-                    });
-                  }}
-                >
+                <form className={styles.formbox} onSubmit={handleSubmit}>
                   <Field
                     name="comment"
                     component="input"
                     type="text"
+                    validate={required}
                     className={styles.inputcomment}
                     placeholder="Type here ..."
-                  />
+                  >
+                    {({ input, meta }) => (
+                      <div
+                        style={{
+                          "margin-top": "10px",
+                          "padding-left": "50px",
+                          "padding-right": "50px",
+                          width: "100%",
+                        }}
+                      >
+                        <textarea
+                          {...input}
+                          type="textarea"
+                          className={styles.inputcomment}
+                        ></textarea>
+                        {meta.error && meta.touched && (
+                          <span>{meta.error}</span>
+                        )}
+                      </div>
+                    )}
+                  </Field>
                   <button type="submit" className={styles.button}>
                     {" "}
                     Post Your Answer{" "}

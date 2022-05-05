@@ -10,7 +10,7 @@ import { axiosInstance } from "../utils/auth";
 import withUser from "./withUser";
 
 const ContentDashboard = () => {
-    const router = useRouter()
+  const router = useRouter();
   // const user = useSelector(selectUser)
 
   // CRUD - create, read, update, delete
@@ -33,7 +33,6 @@ const ContentDashboard = () => {
         console.log("responaw", res.data);
         setUserCourses(res.data);
         console.log("res data courses", userCourses);
-        
       })
       .catch((e) => {
         console.log("error", e);
@@ -46,35 +45,37 @@ const ContentDashboard = () => {
 
     console.log("delete id");
     if (user_course) {
-      axiosInstance().delete(deleteUrl).then(() => {
-        setUserCourses(
-          userCourses.filter((course) => course.id !== user_course)
-        );
-      });
+      axiosInstance()
+        .delete(deleteUrl)
+        .then(() => {
+          setUserCourses(
+            userCourses.filter((course) => course.id !== user_course)
+          );
+        });
     }
   };
 
-const handleAddButton = () => {
-    router.push('/departments');
-}
-
+  const handleAddButton = () => {
+    router.push("/departments");
+  };
 
   const renderCourses = () => {
     return userCourses.map((userCourse) => {
       return (
         <>
           <div className={styles.cardwrapper}>
-           <Link href={`course/${userCourse.course.id}`}><div className={styles.card}>
-              <a className={styles.name}>{userCourse.course.name}</a>
-              <button
-                className={styles.button}
-                onClick={(e) => handleRemoveButton(userCourse.id, e)}
-              >
-                {" "}
-                Remove Course
-              </button>
-            </div>
-            </Link> 
+            <Link href={`course/${userCourse.course.id}`}>
+              <div className={styles.card}>
+                <a className={styles.name}>{userCourse.course.name}</a>
+                <button
+                  className={styles.button}
+                  onClick={(e) => handleRemoveButton(userCourse.id, e)}
+                >
+                  {" "}
+                  Remove Course
+                </button>
+              </div>
+            </Link>
           </div>
         </>
       );
@@ -90,14 +91,18 @@ const handleAddButton = () => {
               <h2>My Courses</h2>
             </div>
           </div>
+          <div className={styles.tabs}>
+            <div className={styles.buttontab}>
+              <button className={styles.add} onClick={handleAddButton}>
+                {" "}
+                Add Courses
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className={styles.coursestab}>
-        {renderCourses()}
-
-        <button className={styles.add} onClick={handleAddButton}> Add Courses</button>
-      </div>
+      <div className={styles.coursestab}>{renderCourses()}</div>
     </>
   );
 };

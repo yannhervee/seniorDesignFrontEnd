@@ -6,6 +6,12 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-}
+  /* env: {
+    image:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3001"
+        : "https://studentconnection.herokuapp.com",
+  }, */
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

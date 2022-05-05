@@ -70,6 +70,7 @@ const ContentPostQuestion = () => {
   };
 
   const onSuggestHandler = (text) => {
+    console.log("setting text");
     setText(text);
     setSuggestions([]);
   };

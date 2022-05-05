@@ -38,30 +38,41 @@ const CourseForum = () => {
       <LeftNav />
       <div className={styles.container}>
         <h1 className={styles.title}> Forum </h1>
+        {posts.length ? null : (
+          <h3> There is no posts for this course at the moment.</h3>
+        )}
 
-        {posts.slice(0).reverse().map((post) => {
-         
-          return (
-            <>
-              <Link href={`../forum/${post.id}`}>
-                <div className={styles.question}>
-                  <div className={styles.userinfo}>
-                    <div className={styles.circle}>B</div>
+        {posts
+          .slice(0)
+          .reverse()
+          .map((post) => {
+            return (
+              <>
+                <Link href={`../forum/${post.id}`}>
+                  <div className={styles.question}>
+                    <div className={styles.userinfo}>
+                      <div className={styles.circle}>
+                        {post.user.name.charAt(0).toUpperCase()}
+                      </div>
+                    </div>
+                    <div className={styles.questioninfo}>
+                      <span className={styles.questioncontent}>
+                        {post.body.slice(0, 200)}
+                      </span>
+                      <span className={styles.topic}> {post.topic.name}</span>
+                    </div>
+                    <div className={styles.comments}>
+                      {" "}
+                      {post.comments.length} comments{" "}
+                    </div>
+                    <div className={styles.course}>
+                      {post.topic.course.name}
+                    </div>
                   </div>
-                  <div className={styles.questioninfo}>
-                    <span className={styles.questioncontent}>{post.body.slice(0,200)}</span>
-                    <span className={styles.topic}> {post.topic.name}</span>
-                  </div>
-                  <div className={styles.comments}>
-                    {" "}
-                    {post.comments.length} comments{" "}
-                  </div>
-                  <div className={styles.course}>{post.topic.course.name}</div>
-                </div>
-              </Link>
-            </>
-          );
-        })}
+                </Link>
+              </>
+            );
+          })}
       </div>
     </>
   );
